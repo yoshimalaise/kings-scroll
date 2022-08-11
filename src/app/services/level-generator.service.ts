@@ -15,6 +15,7 @@ export class LevelGeneratorService {
     const snippet = this.codeGen.generateSnippet();
 
     const solution = this.evalService.evaluateCode(snippet);
+    console.log('the solution', solution);
 
     return {
       characters: this.charGen.generateCharacterSet(),

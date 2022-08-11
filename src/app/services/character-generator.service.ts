@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Character, VisualProp } from '../model/character.interface';
-import { shuffleArray } from '../utils/shuffle';
+import { shuffleArray } from '../utils/utils';
 
 @Injectable({
   providedIn: 'root'
