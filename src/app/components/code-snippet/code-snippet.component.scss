@@ -1,0 +1,15 @@
+/** customize the code highlight, hide the language and copy button **/
+::ng-deep .code-toolbar > .toolbar {
+  display: none !important;
+}
+::ng-deep .code-line .language-javascript {
+  border-top: none !important;
+  padding: 2px !important;
+  margin: 0px !important;
+}
+
+::ng-deep .language-javascript {
+  font-size: xx-small;
+  height: 660px !important;
+  width: 360px !important;
+}

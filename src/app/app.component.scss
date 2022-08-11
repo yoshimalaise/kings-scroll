@@ -1,0 +1,17 @@
+.outer {
+  background-color: #373E98;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  background-color: #373E98;
+  width: 100%;
+  max-width: 1200px;
+  height: 700px;
+  overflow-y: auto;
+  padding: 5px;
+}

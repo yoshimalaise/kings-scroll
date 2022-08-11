@@ -1,0 +1,9 @@
+<div class="gamefield" *ngIf="currLevel">
+  <div class="codesnippet-container">
+    <app-code-snippet class="code" [code]="currLevel.codeSnippet"></app-code-snippet>
+  </div>
+
+  <div class="gamefield-container">
+    <app-character-grid (selected)="handleCharSelection($event)" [characters]="currLevel.characters"></app-character-grid>
+  </div>
+</div>

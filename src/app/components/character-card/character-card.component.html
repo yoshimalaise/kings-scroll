@@ -1,0 +1,8 @@
+<div class="character-card" [style.width]="width + 'px'" [style.height]="height + 30 + 'px'" *ngIf="character">
+  <canvas class="character-canvas" [width]="width" [height]="height" #characterCanvas>
+
+  </canvas>
+  <div class="name-wrapper">
+    <span [classList]="[character.properties.blue ? 'blue-name' : 'pink-name']"> {{ character.name }} </span>
+  </div>
+</div>

@@ -1,0 +1,3 @@
+<div class="character-container" *ngIf="characters">
+  <app-character-card (click)="selectCard(char)" *ngFor="let char of characters" [character]="char"></app-character-card>
+</div>
