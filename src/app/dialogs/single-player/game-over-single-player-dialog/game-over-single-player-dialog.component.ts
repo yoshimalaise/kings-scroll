@@ -19,10 +19,6 @@ export class GameOverSinglePlayerDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  confirm() {
-    this.dialogRef.close('');
-  }
-
   playAgain() {
     this.dialogRef.close(GameOverVMAction.playAgain);
   }
