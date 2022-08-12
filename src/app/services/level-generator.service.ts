@@ -15,10 +15,13 @@ export class LevelGeneratorService {
     const snippet = this.codeGen.generateSnippet();
 
     const solution = this.evalService.evaluateCode(snippet);
-    console.log('the solution', solution);
+    
+    const chars = this.charGen.generateCharacterSet();
+    chars.forEach(c => c.isCorrect = c.properties.blue === solution.blue && c.properties.tie === solution.tie 
+                          && c.properties.headWear === solution.headWear && c.properties.glasses === solution.glasses);
 
     return {
-      characters: this.charGen.generateCharacterSet(),
+      characters: chars,
       codeSnippet: snippet,
       solution
     }

@@ -13,6 +13,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatListModule} from '@angular/material/list';
+import {MatRippleModule} from '@angular/material/core';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { MenuComponent } from './pages/menu/menu.component';
 import { SettingsComponent } from './pages/settings/settings.component';
@@ -20,7 +22,6 @@ import { GameComponent } from './pages/game/game.component';
 import { CodeSnippetComponent } from './components/code-snippet/code-snippet.component';
 import { CharacterGridComponent } from './components/character-grid/character-grid.component';
 import { CharacterCardComponent } from './components/character-card/character-card.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SetupSinglePlayerDialogComponent } from './dialogs/single-player/setup-single-player-dialog/setup-single-player-dialog.component';
 import { SetupCoopDialogComponent } from './dialogs/co-op/setup-coop-dialog/setup-coop-dialog.component';
 import { AwardPointsSinglePlayerDialogComponent } from './dialogs/single-player/award-points-single-player-dialog/award-points-single-player-dialog.component';
@@ -59,7 +60,8 @@ import { PlayerOverviewComponent } from './components/player-overview/player-ove
     MatFormFieldModule,
     MatInputModule,
     MatButtonToggleModule,
-    MatListModule
+    MatListModule,
+    MatRippleModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],
