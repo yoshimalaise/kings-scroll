@@ -8,6 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
+import {MatRippleModule} from '@angular/material/core';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { MenuComponent } from './pages/menu/menu.component';
 import { SettingsComponent } from './pages/settings/settings.component';
@@ -15,7 +17,6 @@ import { GameComponent } from './pages/game/game.component';
 import { CodeSnippetComponent } from './components/code-snippet/code-snippet.component';
 import { CharacterGridComponent } from './components/character-grid/character-grid.component';
 import { CharacterCardComponent } from './components/character-card/character-card.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     BrowserAnimationsModule,
     MatButtonModule,
     MatCardModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatRippleModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],

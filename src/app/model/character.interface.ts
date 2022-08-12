@@ -3,7 +3,8 @@ import { PropertyCombination } from "./property-combination.interface";
 export interface Character {
   name: string;
   properties: PropertyCombination;
-  visualProps: VisualProp[]
+  visualProps: VisualProp[];
+  isCorrect?: boolean;
 }
 
 export interface VisualProp {

@@ -4,11 +4,11 @@
   width: 160px;
   height: 170px;
   **/
-  margin: 5px;
+  margin: 3px;
   display: flex;
   flex-direction: column;
-  background-color: #272822;
-  border: 2px solid #272822;
+  background-color: white;
+  border: 4px solid #272822;
   border-radius: 10px;
 }
 
@@ -27,8 +27,20 @@
 
 .blue-name {
   color: aqua;
+  text-shadow: #000 0px 0px 1px,   #000 0px 0px 1px,   #000 0px 0px 1px,
+             #000 0px 0px 1px,   #000 0px 0px 1px,   #000 0px 0px 1px,
+             #000 0px 0px 1px,   #000 0px 0px 1px,   #000 0px 0px 1px,
+             #000 0px 0px 1px,   #000 0px 0px 1px,   #000 0px 0px 1px,
+             #000 0px 0px 1px,   #000 0px 0px 1px,   #000 0px 0px 1px,
+             #000 0px 0px 1px,   #000 0px 0px 1px,   #000 0px 0px 1px;
 }
 
 .pink-name {
   color: pink;
+  text-shadow: #000 0px 0px 1px,   #000 0px 0px 1px,   #000 0px 0px 1px,
+              #000 0px 0px 1px,   #000 0px 0px 1px,   #000 0px 0px 1px,
+              #000 0px 0px 1px,   #000 0px 0px 1px,   #000 0px 0px 1px,
+              #000 0px 0px 1px,   #000 0px 0px 1px,   #000 0px 0px 1px,
+              #000 0px 0px 1px,   #000 0px 0px 1px,   #000 0px 0px 1px,
+              #000 0px 0px 1px,   #000 0px 0px 1px,   #000 0px 0px 1px;
 }
