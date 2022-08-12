@@ -10,8 +10,8 @@ import { SettingsService } from './settings.service';
 })
 export class CodegenerationService {
 
-  /** todo add more block types */
-  private generators = [this.generateDirectAssignment.bind(this), this.generateIfElseBlock.bind(this), this.generateForLoopBlock.bind(this)];
+  private generators = [this.generateDirectAssignment.bind(this), this.generateIfElseBlock.bind(this), this.generateForLoopBlock.bind(this),
+                        this.generateSwapBlock.bind(this)];
   private endSetVars = ['headWear', 'tie', 'glasses', 'blue'];
   private extendedEndSetVars = [...this.endSetVars, ...this.endSetVars.map(v => `!${v}`), 'true', 'false'];
   private comparators = ['<', '<=', '===', '!==', '>', '>='];
@@ -33,6 +33,19 @@ if (${newVarName} ${getRandomElementFromArr(this.comparators)} ${noBetween(0, 20
   ${this.generateDirectAssignment()}
 }
 `);
+  }
+
+  private generateSwapBlock() {
+    const newVarName = this.getNextVar();
+    const el1 = getRandomElementFromArr(this.endSetVars);
+    const el2 = getRandomElementFromArr(this.endSetVars.filter(x => x !== el1));
+    return (
+ `
+ let ${newVarName} = ${el1};
+ ${el1} = ${el2};
+ ${el2} = ${newVarName};
+ `     
+    );
   }
 
   private generateForLoopBlock() {
