@@ -20,7 +20,20 @@ export class CodegenerationService {
   constructor(private settings: SettingsService) { }
 
   private generateDirectAssignment() {
-    return `${getRandomElementFromArr(this.endSetVars)} = ${getRandomElementFromArr(this.extendedEndSetVars)};`;
+    return `${getRandomElementFromArr(this.endSetVars)} = ${ getRandomElementFromArr(this.extendedEndSetVars)};`;
+  }
+
+  /**
+   * can be used inside the body of other snippets.
+   * depending on the difficulty of the gane it either generates a direct assignment or recursively calls a block to generate nested statements
+   */
+  private generateEmbeddableSnippet(): string {
+    const threshold = this.settings.difficultyLevel === Difficulty.Easy ? 1 : this.settings.difficultyLevel === Difficulty.Medium ? 0.7 : 0.5;
+    if (Math.random() > threshold) {
+      return this.generateBlock();
+    } else {
+      return this.generateDirectAssignment();
+    }
   }
 
   private generateIfElseBlock() {
@@ -28,9 +41,9 @@ export class CodegenerationService {
     return (
 `let ${newVarName} = ${noBetween(0, 20)};
 if (${newVarName} ${getRandomElementFromArr(this.comparators)} ${noBetween(0, 20)}) {
-  ${this.generateDirectAssignment()}
+  ${this.generateEmbeddableSnippet()}
 } else {
-  ${this.generateDirectAssignment()}
+  ${this.generateEmbeddableSnippet()}
 }
 `);
   }
@@ -41,9 +54,9 @@ if (${newVarName} ${getRandomElementFromArr(this.comparators)} ${noBetween(0, 20
     const el2 = getRandomElementFromArr(this.endSetVars.filter(x => x !== el1));
     return (
  `
- let ${newVarName} = ${el1};
- ${el1} = ${el2};
- ${el2} = ${newVarName};
+let ${newVarName} = ${el1};
+${el1} = ${el2};
+${el2} = ${newVarName};
  `     
     );
   }
@@ -51,8 +64,8 @@ if (${newVarName} ${getRandomElementFromArr(this.comparators)} ${noBetween(0, 20
   private generateForLoopBlock() {
     const newVarName = this.getNextVar();
     return (
-`for (let ${newVarName} = ${noBetween(0, 10)}; ${newVarName} ${Math.random() > 0.5 ? '>' : '>='} ${noBetween(11, 20)}; ${newVarName}++) {
-  ${this.generateDirectAssignment()}
+`for (let ${newVarName} = ${noBetween(0, 10)}; ${newVarName} ${Math.random() > 0.5 ? '<' : '<='} ${noBetween(11, 20)}; ${newVarName}++) {
+  ${this.generateEmbeddableSnippet()}
 }
 `);
   }
@@ -62,7 +75,8 @@ if (${newVarName} ${getRandomElementFromArr(this.comparators)} ${noBetween(0, 20
     const beginFalseCollection: string[] = [];
   
     this.endSetVars.forEach(varName => (Math.random() > 0.5) ? beginTrueCollection.push(varName) : beginFalseCollection.push(varName));
-    return `let ${[...beginTrueCollection.map(n => `${n} = true`), ...beginFalseCollection.map(n => `${n} = false`)].join(', ')};`;
+    return `${[...beginTrueCollection.map(n => `let ${n} = true;`), 
+                ...beginFalseCollection.map(n => `let ${n} = false;`)].join('\n')}`;
   }
 
   private getNextVar(): string {
@@ -71,6 +85,15 @@ if (${newVarName} ${getRandomElementFromArr(this.comparators)} ${noBetween(0, 20
 
   private generateBlock() {
     return getRandomElementFromArr(this.generators)()
+  }
+
+  /**
+   * Generates a nice pretty version of the code according to best practises
+   * @param snippet the code to prettify
+   * @returns prittified snippet
+   */
+  private prettify(snippet: string): string {
+    return generator.generate(parse(snippet, { ecmaVersion: 9}));
   }
 
   generateSnippet(): string {
@@ -82,7 +105,7 @@ if (${newVarName} ${getRandomElementFromArr(this.comparators)} ${noBetween(0, 20
       blocks.push(this.generateBlock());
     }
 
-    return [ast, ...blocks].join("\n");
+    return this.prettify([ast, ...blocks].join("\n"));
   }
 
 }
