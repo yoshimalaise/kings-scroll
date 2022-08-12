@@ -1,1 +1,14 @@
-<p>game-over-single-player-dialog works!</p>
+<h1 mat-dialog-title>Game over</h1>
+<div mat-dialog-content>
+    <div class="container">
+        <div class="message">
+            You won!
+        </div>
+    </div>
+</div>
+<div mat-dialog-actions>
+    <div class="action-wrapper">
+        <button (click)="playAgain()" mat-button cdkFocusInitial>Play Again</button>
+        <button (click)="backToMain()" mat-button cdkFocusInitial>Back to main menu</button>
+    </div>
+</div>

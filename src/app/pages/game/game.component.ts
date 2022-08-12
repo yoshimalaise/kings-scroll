@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { take } from 'rxjs';
 import { AwardPointsCoopDialogComponent } from 'src/app/dialogs/co-op/award-points-coop-dialog/award-points-coop-dialog.component';
 import { GameOverCoopDialogComponent } from 'src/app/dialogs/co-op/game-over-coop-dialog/game-over-coop-dialog.component';
@@ -10,8 +11,9 @@ import { GameOverSinglePlayerDialogComponent } from 'src/app/dialogs/single-play
 import { SetupSinglePlayerDialogComponent } from 'src/app/dialogs/single-player/setup-single-player-dialog/setup-single-player-dialog.component';
 import { Character } from 'src/app/model/character.interface';
 import { GameMode } from 'src/app/model/game-modes.enum';
-import { GameSession } from 'src/app/model/game-session.interface';
+import { CoopSession, GameSession, SinglePlayerSession } from 'src/app/model/game-session.interface';
 import { Level } from 'src/app/model/level.interface';
+import { GameOverVMAction } from 'src/app/model/view-models/game-over-action-vm.enum';
 import { LevelGeneratorService } from 'src/app/services/level-generator.service';
 import { SettingsService } from 'src/app/services/settings.service';
 
@@ -24,7 +26,8 @@ export class GameComponent implements OnInit {
   currLevel?: Level;
   session?: GameSession = undefined;
 
-  constructor(private levelGeneratorService: LevelGeneratorService, private settings: SettingsService, public dialog: MatDialog) {
+  constructor(private levelGeneratorService: LevelGeneratorService, private settings: SettingsService, 
+    public dialog: MatDialog, private router: Router) {
     this.session = {
       isSinglePlayer: this.settings.gameMode === GameMode.SINGLE_PLAYER,
       isFinished: false,
@@ -57,8 +60,9 @@ export class GameComponent implements OnInit {
     const p = char.properties;
     const isCorrect = (s?.blue === p.blue && s.glasses === p.glasses && s.headWear === p.headWear && s.tie === p.tie);
 
-    const dialogRef = this.dialog.open(this.settings.gameMode === GameMode.SINGLE_PLAYER ? AwardPointsSinglePlayerDialogComponent : AwardPointsCoopDialogComponent, {
-      data: this.session,
+    const dialogRef = this.dialog.open(this.settings.gameMode === GameMode.SINGLE_PLAYER ? AwardPointsSinglePlayerDialogComponent as any : AwardPointsCoopDialogComponent, {
+      data: {  session: this.session, correctChoice: isCorrect},
+      width: '500px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -72,8 +76,21 @@ export class GameComponent implements OnInit {
   }
 
   private showGameOverScreen() {
-    const dialogRef = this.dialog.open(this.settings.gameMode === GameMode.SINGLE_PLAYER ? GameOverSinglePlayerDialogComponent : GameOverCoopDialogComponent, {
+    const dialogRef = this.dialog.open(this.settings.gameMode === GameMode.SINGLE_PLAYER ? GameOverSinglePlayerDialogComponent as any : GameOverCoopDialogComponent, {
       data: this.session,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === GameOverVMAction.playAgain) {
+        if (!this.session) return;
+
+        this.session.isFinished = false;
+        (this.session as SinglePlayerSession).score = 0;
+        (this.session as CoopSession).participants.forEach(p => p.score = 0);
+        this.loadNextLevel();
+      } else {
+        this.router.navigateByUrl('');
+      }
     });
   }
 

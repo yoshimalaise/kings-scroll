@@ -6,7 +6,7 @@ export interface GameSession {
 
 export interface SinglePlayerSession extends GameSession {
     playerName: string;
-    score: string;
+    score: number;
 }
 
 export interface CoopSession extends GameSession {

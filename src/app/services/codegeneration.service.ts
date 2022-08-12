@@ -11,7 +11,7 @@ import { SettingsService } from './settings.service';
 export class CodegenerationService {
 
   private generators = [this.generateDirectAssignment.bind(this), this.generateIfElseBlock.bind(this), this.generateForLoopBlock.bind(this),
-                        this.generateSwapBlock.bind(this), this.generateDoWhileBlock.bind(this)];
+                        this.generateSwapBlock.bind(this), this.generateDoWhileBlock.bind(this), this.generateFunctionBlock.bind(this)];
   private endSetVars = ['headWear', 'tie', 'glasses', 'blue'];
   private extendedEndSetVars = [...this.endSetVars, ...this.endSetVars.map(v => `!${v}`), 'true', 'false'];
   private comparators = ['<', '<=', '===', '!==', '>', '>='];
@@ -86,6 +86,19 @@ do {
   ${newVarName}${incOrDec};
   ${this.generateEmbeddableSnippet()}
 } while (${newVarName} ${comparator} ${thresholdValue});
+`
+    );
+  }
+
+  private generateFunctionBlock() {
+    const funcName = this.getNextVar();
+
+    return (
+`function ${funcName}() {
+  ${this.generateEmbeddableSnippet()}
+}
+${this.generateEmbeddableSnippet()}
+${funcName}();
 `
     );
   }
