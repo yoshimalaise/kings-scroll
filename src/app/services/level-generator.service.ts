@@ -20,6 +20,8 @@ export class LevelGeneratorService {
     chars.forEach(c => c.isCorrect = c.properties.blue === solution.blue && c.properties.tie === solution.tie 
                           && c.properties.headWear === solution.headWear && c.properties.glasses === solution.glasses);
 
+
+    console.log('the solution', chars.find(c => c.isCorrect)?.name);
     return {
       characters: chars,
       codeSnippet: snippet,

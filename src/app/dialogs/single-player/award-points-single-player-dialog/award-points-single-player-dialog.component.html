@@ -1,0 +1,17 @@
+<h1 mat-dialog-title> {{ correctChoice ? 'Correct!' : 'Wrong!' }}</h1>
+
+<div mat-dialog-content>
+    <div class="container">
+        <div class="playerName">
+            {{ session.playerName }}
+        </div>
+        <div class="stars">
+            <img  width="32px" alt="" src="assets/star.png" *ngFor="let x of stars"/>
+        </div>
+    </div>
+</div>
+<div mat-dialog-actions>
+    <div class="action-wrapper">
+        <button (click)="confirm()" mat-button cdkFocusInitial>Continue</button>
+    </div>
+</div>

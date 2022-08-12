@@ -1,0 +1,16 @@
+<mat-list class="list" role="list" *ngIf="session && session.participants.length > 0; else placeholder">
+    <mat-list-item *ngFor="let p of session.participants" role="listitem">
+        <div class="item-wrapper">
+            <div class="name">
+                {{ p.name }}
+            </div>
+            <img  width="32px" alt="" src="assets/star.png" *ngFor="let n of numSequence(p.score)"/>
+        </div>
+    </mat-list-item>
+</mat-list>
+
+<ng-template #placeholder>
+    <div class="placeholder">
+        Please add players to start.
+    </div>
+</ng-template>
