@@ -15,7 +15,7 @@ export class GameOverCoopDialogComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<GameOverCoopDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: GameSession,) {
                 this.session = data as CoopSession;
-                this.winner = this.session.participants.sort((a, b) => a.score = b.score)[0];
+                this.winner = this.session.participants.sort((a, b) => b.score - a.score)[0];
                }
 
   ngOnInit(): void {

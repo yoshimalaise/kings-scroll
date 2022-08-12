@@ -1,3 +1,9 @@
 .list, .placeholder {
     min-height: 150px;
 }
+
+.item-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}

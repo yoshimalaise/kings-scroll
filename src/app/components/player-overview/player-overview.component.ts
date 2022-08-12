@@ -14,4 +14,8 @@ export class PlayerOverviewComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  numSequence(n: number): any[] {
+    return Array(n).fill(0);
+  }
+
 }

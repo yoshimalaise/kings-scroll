@@ -1,1 +1,23 @@
-<p>award-points-coop-dialog works!</p>
+<h1 mat-dialog-title> {{ correctChoice ? 'Correct!' : 'Wrong!' }}</h1>
+
+<div mat-dialog-content>
+    <div *ngIf="!selectedParticipant;">
+        <p>Who made the guess?</p>
+        <mat-button-toggle-group class="toggle-buttons" [(ngModel)]="participantName">
+            <mat-button-toggle *ngFor="let p of session.participants" style="width:100%" [value]="p.name"> {{ p.name }}</mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+
+    <app-player-overview *ngIf="selectedParticipant;" [session]="session"></app-player-overview>
+</div>
+<div mat-dialog-actions>
+    <div *ngIf="selectedParticipant;" class="action-wrapper">
+        <button (click)="confirm()" mat-button cdkFocusInitial>Continue</button>
+    </div>
+
+    
+    <div *ngIf="!selectedParticipant;"  class="action-wrapper">
+        <button (click)="selectParticipant()" mat-button>Select</button>
+    </div>
+    
+</div>
