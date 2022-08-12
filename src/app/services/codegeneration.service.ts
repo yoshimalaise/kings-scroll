@@ -11,7 +11,7 @@ import { SettingsService } from './settings.service';
 export class CodegenerationService {
 
   private generators = [this.generateDirectAssignment.bind(this), this.generateIfElseBlock.bind(this), this.generateForLoopBlock.bind(this),
-                        this.generateSwapBlock.bind(this)];
+                        this.generateSwapBlock.bind(this), this.generateDoWhileBlock.bind(this)];
   private endSetVars = ['headWear', 'tie', 'glasses', 'blue'];
   private extendedEndSetVars = [...this.endSetVars, ...this.endSetVars.map(v => `!${v}`), 'true', 'false'];
   private comparators = ['<', '<=', '===', '!==', '>', '>='];
@@ -68,6 +68,26 @@ ${el2} = ${newVarName};
   ${this.generateEmbeddableSnippet()}
 }
 `);
+  }
+
+  private generateDoWhileBlock() {
+    const newVarName = this.getNextVar();
+    const initialValue = noBetween(0, 20);
+    const thresholdValue = noBetween(0, 20);
+    const comparator = getRandomElementFromArr(['<', '<=', '>', '>=', '===']);
+    // this one is a bit tricky since we want to prevent infinite loops
+    let incOrDec = '++';
+    if ((initialValue > thresholdValue) && ['>', '>='].includes(comparator)) {
+      incOrDec = '--';
+    }
+    return (
+`let ${newVarName} = ${initialValue};
+do {
+  ${newVarName}${incOrDec};
+  ${this.generateEmbeddableSnippet()}
+} while (${newVarName} ${comparator} ${thresholdValue});
+`
+    );
   }
 
   private generateInitialDeclarations() {
