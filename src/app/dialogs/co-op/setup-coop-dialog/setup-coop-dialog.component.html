@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Setup Game Session</h1>
+<div mat-dialog-content>
+    <p>Players:</p>
+    <div class="add-player-wrapper">
+        <mat-form-field appearance="fill">
+            <mat-label>name</mat-label>
+            <input class="name-field" matInput [(ngModel)]="currName">
+        </mat-form-field>
+        <button (click)="addPlayer()" mat-button>add</button>
+    </div>
+    <app-player-overview [session]="session"></app-player-overview>
+    <p>How many points are needed to win?</p>
+    <mat-button-toggle-group class="toggle-buttons" [(ngModel)]="session.targetGoal">
+        <mat-button-toggle style="width:100%" [value]="3">3</mat-button-toggle>
+        <mat-button-toggle style="width:100%" [value]="5">5</mat-button-toggle>
+        <mat-button-toggle style="width:100%" [value]="7">7</mat-button-toggle>
+    </mat-button-toggle-group>
+</div>
+<div mat-dialog-actions>
+    <div class="action-wrapper">
+        <button (click)="confirm()" mat-button cdkFocusInitial>Start Game</button>
+    </div>
+</div>
