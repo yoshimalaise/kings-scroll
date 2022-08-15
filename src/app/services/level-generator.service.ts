@@ -12,7 +12,7 @@ export class LevelGeneratorService {
   constructor(private codeGen: CodegenerationService, private charGen: CharacterGeneratorService, private evalService: CodeEvaluatorService) { }
 
   generateLevel(): Level {
-    const snippet = this.codeGen.generateSnippet();
+    const { snippet, vars } = this.codeGen.generateSnippet();
 
     const solution = this.evalService.evaluateCode(snippet);
     
@@ -25,7 +25,8 @@ export class LevelGeneratorService {
     return {
       characters: chars,
       codeSnippet: snippet,
-      solution
+      solution,
+      declaredVars: vars
     }
   }
 }

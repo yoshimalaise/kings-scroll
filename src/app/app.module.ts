@@ -15,6 +15,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatListModule} from '@angular/material/list';
 import {MatRippleModule} from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import { MenuComponent } from './pages/menu/menu.component';
 import { SettingsComponent } from './pages/settings/settings.component';
@@ -30,6 +31,7 @@ import { GameOverCoopDialogComponent } from './dialogs/co-op/game-over-coop-dial
 import { GameOverSinglePlayerDialogComponent } from './dialogs/single-player/game-over-single-player-dialog/game-over-single-player-dialog.component';
 import { FormsModule } from '@angular/forms';
 import { PlayerOverviewComponent } from './components/player-overview/player-overview.component';
+import { TracingHelperComponent } from './components/tracing-helper/tracing-helper.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,8 @@ import { PlayerOverviewComponent } from './components/player-overview/player-ove
     AwardPointsCoopDialogComponent,
     GameOverCoopDialogComponent,
     GameOverSinglePlayerDialogComponent,
-    PlayerOverviewComponent
+    PlayerOverviewComponent,
+    TracingHelperComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +64,8 @@ import { PlayerOverviewComponent } from './components/player-overview/player-ove
     MatInputModule,
     MatButtonToggleModule,
     MatListModule,
-    MatRippleModule
+    MatRippleModule,
+    MatCheckboxModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],

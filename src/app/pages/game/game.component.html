@@ -1,7 +1,12 @@
 <div class="gamefield" *ngIf="currLevel">
-  <div class="codesnippet-container">
-    <app-code-snippet class="code" [code]="currLevel.codeSnippet"></app-code-snippet>
+  <div class="left-column">
+    <div class="codesnippet-container">
+      <app-code-snippet class="code" [code]="currLevel.codeSnippet"></app-code-snippet>
+    </div>
+
+    <app-tracing-helper class="tracing-helper" [level]="currLevel"></app-tracing-helper>
   </div>
+
 
   <div class="gamefield-container">
     <app-character-grid (selected)="handleCharSelection($event)" [characters]="currLevel.characters"></app-character-grid>

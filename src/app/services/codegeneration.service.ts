@@ -10,6 +10,8 @@ import { SettingsService } from './settings.service';
 })
 export class CodegenerationService {
 
+  private declaredVars: string[] = [];
+
   private generators = [this.generateDirectAssignment.bind(this), this.generateIfElseBlock.bind(this), this.generateForLoopBlock.bind(this),
                         this.generateSwapBlock.bind(this), this.generateDoWhileBlock.bind(this), this.generateFunctionBlock.bind(this)];
   private endSetVars = ['headWear', 'tie', 'glasses', 'blue'];
@@ -113,7 +115,9 @@ ${funcName}();
   }
 
   private getNextVar(): string {
-    return ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'foo', 'bar', 'buzz'][this.varCtr++];
+    const nextVar = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'foo', 'bar', 'buzz'][this.varCtr++];
+    this.declaredVars.push(nextVar);
+    return nextVar;
   }
 
   private generateBlock() {
@@ -129,8 +133,9 @@ ${funcName}();
     return generator.generate(parse(snippet, { ecmaVersion: 9}));
   }
 
-  generateSnippet(): string {
+  generateSnippet(): { snippet: string, vars: string[] } {
     const ast = this.generateInitialDeclarations();
+    this.declaredVars = [];
     const blocks = [];
 
     const noOfBlocks = this.settings.difficultyLevel === Difficulty.Easy ? noBetween(1, 2) : this.settings.difficultyLevel === Difficulty.Medium ? noBetween(3, 4) : noBetween(4, 5); 
@@ -138,7 +143,7 @@ ${funcName}();
       blocks.push(this.generateBlock());
     }
 
-    return this.prettify([ast, ...blocks].join("\n"));
+    return ({ snippet: this.prettify([ast, ...blocks].join("\n")), vars: this.declaredVars});
   }
 
 }
