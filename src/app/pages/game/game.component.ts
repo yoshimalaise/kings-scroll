@@ -39,6 +39,7 @@ export class GameComponent implements OnInit {
 
     const dialogRef = this.dialog.open(this.settings.gameMode === GameMode.SINGLE_PLAYER ? SetupSinglePlayerDialogComponent as any: SetupCoopDialogComponent, {
       data: this.session as any,
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -62,6 +63,7 @@ export class GameComponent implements OnInit {
 
     const dialogRef = this.dialog.open(this.settings.gameMode === GameMode.SINGLE_PLAYER ? AwardPointsSinglePlayerDialogComponent as any : AwardPointsCoopDialogComponent, {
       data: {  session: this.session, correctChoice: isCorrect},
+      disableClose: true,
       width: '500px'
     });
 
@@ -78,6 +80,7 @@ export class GameComponent implements OnInit {
   private showGameOverScreen() {
     const dialogRef = this.dialog.open(this.settings.gameMode === GameMode.SINGLE_PLAYER ? GameOverSinglePlayerDialogComponent as any : GameOverCoopDialogComponent, {
       data: this.session,
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {
