@@ -1,1 +1,68 @@
-<p>settings works!</p>
+<div class="menu-container" *ngIf="settings">
+
+  <div class="vertical-container">
+    <h1 class="title">
+      Settings
+    </h1>
+  </div>
+
+  <div class="vertical-container">
+    <div class="language-selection-container">
+      <div class="vertical-container">
+        <h2 class="subtitle">Language</h2>
+      </div>
+
+      <mat-button-toggle-group [(ngModel)]="settings.language" class="toggle-buttons" name="language" aria-label="coding language">
+        <mat-button-toggle style="width:100%" class="toggle-button" value="javascript">JavaScript</mat-button-toggle>
+        <mat-button-toggle style="width:100%" class="toggle-button" value="python">Python</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </div>
+
+  <div class="vertical-container">
+    <div class="difficulty-selection-container">
+      <h2 class="subtitle">Difficulty</h2>
+
+      <mat-button-toggle-group [(ngModel)]="settings.difficultyLevel" class="toggle-buttons" name="language" aria-label="Font Style">
+        <mat-button-toggle style="width:100%" class="toggle-button" value="Easy">Easy</mat-button-toggle>
+        <mat-button-toggle style="width:100%" class="toggle-button" value="Medium">Medium</mat-button-toggle>
+        <mat-button-toggle style="width:100%" class="toggle-button" value="Hard">Hard</mat-button-toggle>
+
+      </mat-button-toggle-group>
+    </div>
+  </div>
+
+  <div class="vertical-container">
+    <div class="language-features-container">
+      <h2 class="subtitle">Language features</h2>
+
+      <mat-list role="list">
+        <mat-list-item class="list-item" role="listitem">
+          <mat-checkbox [(ngModel)]="settings.allowFor" class="checkbox">for loops</mat-checkbox>
+        </mat-list-item>
+
+        <mat-list-item class="list-item" role="listitem">
+          <mat-checkbox [(ngModel)]="settings.allowIf" class="checkbox">if</mat-checkbox>
+        </mat-list-item>
+
+        <mat-list-item class="list-item" role="listitem">
+          <mat-checkbox [(ngModel)]="settings.allowIfElse" class="checkbox">if ... else ...</mat-checkbox>
+        </mat-list-item>
+
+        <mat-list-item class="list-item" role="listitem">
+          <mat-checkbox [(ngModel)]="settings.allowWhile" class="checkbox">do while loops</mat-checkbox>
+        </mat-list-item>
+
+        <mat-list-item class="list-item" role="listitem">
+          <mat-checkbox [(ngModel)]="settings.allowFunctions" class="checkbox">function declarations</mat-checkbox>
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </div>
+
+
+  <div class="vertical-container">
+    <button (click)="goBack()" class="menu-button" color="primary" mat-raised-button cdkFocusInitial>Back to main menu</button>
+  </div>
+
+</div>
