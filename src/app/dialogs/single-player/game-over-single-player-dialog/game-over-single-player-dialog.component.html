@@ -1,14 +1,14 @@
-<h1 mat-dialog-title>Game over</h1>
+<h1 mat-dialog-title>{{ settings.showTutorial ? 'Tutorial complete' : 'You won'}}</h1>
 <div mat-dialog-content>
     <div class="container">
         <div class="message">
-            You won!
+            {{ settings.showTutorial ? 'You can start a full game from the main menu.' : 'Congratulations you won the game!' }}
         </div>
     </div>
 </div>
 <div mat-dialog-actions>
     <div class="action-wrapper">
-        <button (click)="playAgain()" mat-button cdkFocusInitial>Play Again</button>
+        <button *ngIf="!settings.showTutorial" (click)="playAgain()" mat-button cdkFocusInitial>Play Again</button>
         <button (click)="backToMain()" mat-button cdkFocusInitial>Back to main menu</button>
     </div>
 </div>
