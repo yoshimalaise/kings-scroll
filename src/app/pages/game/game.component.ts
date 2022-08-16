@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -16,37 +16,48 @@ import { Level } from 'src/app/model/level.interface';
 import { GameOverVMAction } from 'src/app/model/view-models/game-over-action-vm.enum';
 import { LevelGeneratorService } from 'src/app/services/level-generator.service';
 import { SettingsService } from 'src/app/services/settings.service';
+import { ShepherdService } from 'angular-shepherd';
+import { sheperdRequiredElements, steps } from './tour.sheperd';
 
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss']
 })
-export class GameComponent implements OnInit {
+export class GameComponent implements OnInit, AfterViewInit {
   currLevel?: Level;
   session?: GameSession = undefined;
 
   constructor(private levelGeneratorService: LevelGeneratorService, private settings: SettingsService, 
-    public dialog: MatDialog, private router: Router) {
+    public dialog: MatDialog, private router: Router, private shepherdService: ShepherdService) {
     this.session = {
       isSinglePlayer: this.settings.gameMode === GameMode.SINGLE_PLAYER,
       isFinished: false,
-      targetGoal: 3,
+      targetGoal: 1,
       playerName: '',
       score: 0,
       participants: []
-    } as any
+    } as any;
 
-    const dialogRef = this.dialog.open(this.settings.gameMode === GameMode.SINGLE_PLAYER ? SetupSinglePlayerDialogComponent as any: SetupCoopDialogComponent, {
-      data: this.session as any,
-      disableClose: true
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.session = result;
+    if (!this.settings.showTutorial) {
+      const dialogRef = this.dialog.open(this.settings.gameMode === GameMode.SINGLE_PLAYER ? SetupSinglePlayerDialogComponent as any: SetupCoopDialogComponent, {
+        data: this.session as any,
+        disableClose: true
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        this.session = result;
+        this.currLevel = this.levelGeneratorService.generateLevel();
+      });
+    } else {
+      (this.session  as SinglePlayerSession).playerName = 'Tutorial';
       this.currLevel = this.levelGeneratorService.generateLevel();
-    });
-    
+    }
+  }
+  ngAfterViewInit(): void {
+    if (this.settings.showTutorial) {
+      setTimeout(() => this.showIntro(), 500);
+    }
   }
 
   ngOnInit(): void {
@@ -95,6 +106,19 @@ export class GameComponent implements OnInit {
         this.router.navigateByUrl('');
       }
     });
+  }
+
+  private showIntro() {
+    this.shepherdService.defaultStepOptions = {
+      scrollTo: true,
+      cancelIcon: {
+        enabled: false
+      },
+    };
+    this.shepherdService.modal = true;
+    this.shepherdService.requiredElements = sheperdRequiredElements;
+    this.shepherdService.addSteps(steps as any);
+    this.shepherdService.start();
   }
 
 }
