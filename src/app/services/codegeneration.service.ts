@@ -12,8 +12,7 @@ export class CodegenerationService {
 
   private declaredVars: string[] = [];
 
-  private generators = [this.generateDirectAssignment.bind(this), this.generateIfElseBlock.bind(this), this.generateForLoopBlock.bind(this),
-                        this.generateSwapBlock.bind(this), this.generateDoWhileBlock.bind(this), this.generateFunctionBlock.bind(this)];
+  private generators: any[] = [];
   private endSetVars = ['headWear', 'tie', 'glasses', 'blue'];
   private extendedEndSetVars = [...this.endSetVars, ...this.endSetVars.map(v => `!${v}`), 'true', 'false'];
   private comparators = ['<', '<=', '===', '!==', '>', '>='];
@@ -36,6 +35,16 @@ export class CodegenerationService {
     } else {
       return this.generateDirectAssignment();
     }
+  }
+
+  private generateIfBlock() {
+    const newVarName = this.getNextVar();
+    return (
+`let ${newVarName} = ${noBetween(0, 20)};
+if (${newVarName} ${getRandomElementFromArr(this.comparators)} ${noBetween(0, 20)}) {
+  ${this.generateEmbeddableSnippet()}
+}
+`);
   }
 
   private generateIfElseBlock() {
@@ -133,9 +142,22 @@ ${funcName}();
     return generator.generate(parse(snippet, { ecmaVersion: 9}));
   }
 
+  private initializeAllowedBlocks() {
+    this.generators = [
+      this.generateDirectAssignment.bind(this), 
+      this.generateSwapBlock.bind(this), 
+      ...(this.settings.allowIf ?  [this.generateIfBlock.bind(this)] : []),
+      ...(this.settings.allowIfElse ?  [this.generateIfElseBlock.bind(this)] : []),
+      ...(this.settings.allowFor ?  [this.generateForLoopBlock.bind(this)] : []),
+      ...(this.settings.allowWhile ?  [this.generateDoWhileBlock.bind(this)] : []),
+      ...(this.settings.allowFunctions ?  [this.generateFunctionBlock.bind(this)] : []),
+    ];
+  }
+
   generateSnippet(): { snippet: string, vars: string[] } {
     const ast = this.generateInitialDeclarations();
     this.declaredVars = [];
+    this.initializeAllowedBlocks();
     const blocks = [];
 
     const noOfBlocks = this.settings.difficultyLevel === Difficulty.Easy ? noBetween(1, 2) : this.settings.difficultyLevel === Difficulty.Medium ? noBetween(3, 4) : noBetween(4, 5); 
