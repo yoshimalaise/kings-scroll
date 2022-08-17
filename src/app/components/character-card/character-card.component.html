@@ -1,4 +1,7 @@
-<div matRipple [matRippleColor]="character.isCorrect ? '#00ff0055' : '#ff000055'" class="character-card" [style.width]="width + 'px'" [style.height]="height + 30 + 'px'" *ngIf="character">
+<div *ngIf="character"
+  matRipple [matRippleColor]="character.isCorrect ? '#00ff0055' : '#ff000055'" 
+  [ngClass]="settings.showTutorial && character.isCorrect ? 'character-card chosen-one' : 'character-card'" 
+  [style.width]="width + 'px'" [style.height]="height + 30 + 'px'" >
   <canvas class="character-canvas" [width]="width" [height]="height" #characterCanvas>
 
   </canvas>
