@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Character } from 'src/app/model/character.interface';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-character-card',
@@ -13,7 +14,7 @@ export class CharacterCardComponent implements OnInit {
   height = 180;
 
 
-  constructor() { 
+  constructor(public settings: SettingsService) { 
     setTimeout(() => this.drawCharacter(), 300);
   }
 

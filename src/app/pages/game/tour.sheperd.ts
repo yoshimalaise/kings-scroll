@@ -1,3 +1,5 @@
+import { PropertyCombination } from "src/app/model/property-combination.interface";
+
 export const sheperdRequiredElements = [
     {
         selector: '.codesnippet-container',
@@ -24,7 +26,7 @@ const template = {
     scrollTo: false,
 } 
 
-export const steps = [
+const steps = [
     {
         ...template,
         id: 'codeSnippet',
@@ -81,9 +83,99 @@ export const steps = [
             },
             {
               classes: 'shepherd-button-primary',
-              text: 'Finish',
+              text: 'Next',
               type: 'next'
             }
         ]
     },
 ];
+
+
+export function generateSteps(solution: PropertyCombination, chosenName: string) {
+  return [
+    ...steps,
+    {
+      ...template,
+      id: 'solution',
+      attachTo: { 
+        element: '.codesnippet-container', 
+        on: 'right'
+      },
+      title: 'Trace the code!',
+      text: [
+        `In this case executing the code will result in the following table:<br><br>
+        
+        <style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-0lax{text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+<tbody>
+  <tr>
+    <td class="tg-0lax">headWear</td>
+    <td class="tg-0lax">${solution.headWear}</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">tie</td>
+    <td class="tg-0lax">${solution.tie}</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">glasses</td>
+    <td class="tg-0lax">${solution.glasses}</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">blue</td>
+    <td class="tg-0lax">${solution.blue}</td>
+  </tr>
+</tbody>
+</table>
+
+<br>
+Feel free to verify!`
+      ],
+      buttons: [
+          {
+            classes: 'shepherd-button-primary',
+            text: 'Back',
+            type: 'back'
+          },
+          {
+            classes: 'shepherd-button-primary',
+            text: 'Next',
+            type: 'next'
+          }
+      ]
+  },
+  {
+    ...template,
+    id: 'chosen one',
+    attachTo: { 
+      element: '.chosen-one', 
+      on: 'left'
+    },
+    title: 'The chosen one!',
+    text: [
+      `It looks like ${chosenName} is the one we are looking for!
+      They are ${solution.blue ? 'blue' : 'pink'}, are${solution.glasses ? ' ' : ' not'} wearing glasses,
+      are${solution.tie ? ' ' : ' not'} wearing a tie and are${solution.headWear ? ' ' : ' not'} wearing ${solution.headWear ? 'some' : 'any'} kind of headWear.
+      `
+    ],
+    buttons: [
+        {
+          classes: 'shepherd-button-primary',
+          text: 'Back',
+          type: 'back'
+        },
+        {
+          classes: 'shepherd-button-primary',
+          text: 'Finish tutorial',
+          type: 'next'
+        }
+    ]
+},
+  ];
+}

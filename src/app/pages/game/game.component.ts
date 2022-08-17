@@ -17,7 +17,7 @@ import { GameOverVMAction } from 'src/app/model/view-models/game-over-action-vm.
 import { LevelGeneratorService } from 'src/app/services/level-generator.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { ShepherdService } from 'angular-shepherd';
-import { sheperdRequiredElements, steps } from './tour.sheperd';
+import { sheperdRequiredElements, generateSteps } from './tour.sheperd';
 
 @Component({
   selector: 'app-game',
@@ -117,7 +117,7 @@ export class GameComponent implements OnInit, AfterViewInit {
     };
     this.shepherdService.modal = true;
     this.shepherdService.requiredElements = sheperdRequiredElements;
-    this.shepherdService.addSteps(steps as any);
+    this.shepherdService.addSteps(generateSteps(this.currLevel?.solution as any, this.currLevel?.characters.find(c => c.isCorrect)?.name as any) as any);
     this.shepherdService.start();
   }
 
