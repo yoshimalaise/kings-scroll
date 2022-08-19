@@ -9,8 +9,11 @@ import { SettingsService } from 'src/app/services/settings.service';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
+  tutorialHasBeenCompleted = false;
 
-  constructor(private router: Router, public settings: SettingsService) { }
+  constructor(private router: Router, public settings: SettingsService) {
+    this.tutorialHasBeenCompleted = JSON.parse(localStorage.getItem('tutorialCompleted') ?? 'false') as boolean;
+  }
 
   ngOnInit(): void {
   }
@@ -33,6 +36,8 @@ export class MenuComponent implements OnInit {
   startTutorial() {
     this.settings.reset();
     this.settings.showTutorial = true;
+    localStorage.setItem('tutorialCompleted', JSON.stringify('true'));
+    this.tutorialHasBeenCompleted = true;
     this.navigateTo('game');
   }
 
