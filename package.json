@@ -25,6 +25,7 @@
     "angular-shepherd": "^14.0.0",
     "escodegen": "^2.0.0",
     "intro.js": "^6.0.0",
+    "ngx-device-detector": "^4.0.1",
     "rxjs": "~7.5.0",
     "snippet-highlight": "^1.0.2",
     "tslib": "^2.3.0",

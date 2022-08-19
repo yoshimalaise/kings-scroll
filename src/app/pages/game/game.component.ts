@@ -28,7 +28,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   currLevel?: Level;
   session?: GameSession = undefined;
 
-  constructor(private levelGeneratorService: LevelGeneratorService, private settings: SettingsService, 
+  constructor(private levelGeneratorService: LevelGeneratorService, public settings: SettingsService, 
     public dialog: MatDialog, private router: Router, private shepherdService: ShepherdService) {
     this.session = {
       isSinglePlayer: this.settings.gameMode === GameMode.SINGLE_PLAYER,

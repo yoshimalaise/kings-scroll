@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { DeviceDetectorService } from 'ngx-device-detector';
 import { Difficulty } from '../model/difficulty.enum';
 import { GameMode } from '../model/game-modes.enum';
 
@@ -19,10 +20,14 @@ export class SettingsService {
   allowWhile = true;
   allowFunctions = true;
 
+  isMobile = false;
+
   reset() {
     this.gameMode = GameMode.SINGLE_PLAYER;
     this.showTutorial = false;
   }
 
-  constructor() { }
+  constructor(private deviceService: DeviceDetectorService) { 
+    this.isMobile = deviceService.isMobile();
+  }
 }
