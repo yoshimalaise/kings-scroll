@@ -1,5 +1,7 @@
 .outer {
   background-color: #373E98;
+  background-image: url("../assets/grass_bg.png");
+  background-repeat: repeat;
   width: 100%;
   height: 100%;
   display: flex;
@@ -8,7 +10,6 @@
 }
 
 .container {
-  background-color: #373E98;
   width: 100%;
   max-width: 1200px;
   height: 700px;
@@ -17,7 +18,6 @@
 }
 
 .mobile-container {
-  background-color: #373E98;
   width: 100%;
   height: 100%;
   padding: 5px;
