@@ -1,4 +1,4 @@
-<div class="gamefield" *ngIf="currLevel">
+<div class="gamefield" *ngIf="currLevel && !settings.isMobile">
   <div class="left-column">
     <div class="codesnippet-container">
       <app-code-snippet class="code" [code]="currLevel.codeSnippet"></app-code-snippet>
@@ -13,4 +13,35 @@
   <div class="gamefield-container">
     <app-character-grid  (selected)="handleCharSelection($event)" [characters]="currLevel.characters"></app-character-grid>
   </div>
+</div>
+
+<!-- this section is rendered on mobile screens -->
+<div class="mobile-gamefield" *ngIf="currLevel && settings.isMobile">
+  <mat-tab-group [selectedIndex]="currTab" [preserveContent]="true" class="menu-tabs" mat-stretch-tabs headerPosition="below">
+
+    <mat-tab label="scroll">
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">receipt_long</mat-icon>
+      </ng-template>
+
+      <div class="first-tab-content">
+        <div class="mobile-codesnippet-container">
+          <app-code-snippet class="code" [code]="currLevel.codeSnippet"></app-code-snippet>
+        </div>
+        <div class="mobile-tracing-helper-container">
+          <app-tracing-helper  id="tracingHelper" class="tracing-helper" [level]="currLevel"></app-tracing-helper>
+        </div>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="characters"> 
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">admin_panel_settings</mat-icon>
+      </ng-template>
+
+      <div class="mobile-gamefield-container">
+        <app-character-grid  (selected)="handleCharSelection($event)" [characters]="currLevel.characters"></app-character-grid>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
 </div>

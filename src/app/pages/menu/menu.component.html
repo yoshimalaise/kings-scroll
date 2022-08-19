@@ -4,8 +4,8 @@
   </div>
 
   <div class="button-section">
-    <button mat-raised-button (click)="startSinglePlayer()" color="primary">START GAME</button>
-    <button mat-raised-button (click)="startMultiplayer()" color="primary">GROUP SESSION</button>
+    <button [disabled]="!tutorialHasBeenCompleted" mat-raised-button (click)="startSinglePlayer()" color="primary">START GAME</button>
+    <button [disabled]="!tutorialHasBeenCompleted" *ngIf="!settings.isMobile" mat-raised-button (click)="startMultiplayer()" color="primary">GROUP SESSION</button>
     <button mat-raised-button (click)="startTutorial()" color="primary">TUTORIAL</button>
     <button mat-raised-button (click)="openSettings()" color="primary">SETTINGS</button>
   </div>

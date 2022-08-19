@@ -18,6 +18,7 @@ import { LevelGeneratorService } from 'src/app/services/level-generator.service'
 import { SettingsService } from 'src/app/services/settings.service';
 import { ShepherdService } from 'angular-shepherd';
 import { sheperdRequiredElements, generateSteps } from './tour.sheperd';
+import { generateMobileSteps, sheperdMobileRequiredElements } from './tour.mobile.sheperd';
 
 @Component({
   selector: 'app-game',
@@ -27,8 +28,9 @@ import { sheperdRequiredElements, generateSteps } from './tour.sheperd';
 export class GameComponent implements OnInit, AfterViewInit {
   currLevel?: Level;
   session?: GameSession = undefined;
+  currTab = 0;
 
-  constructor(private levelGeneratorService: LevelGeneratorService, private settings: SettingsService, 
+  constructor(private levelGeneratorService: LevelGeneratorService, public settings: SettingsService, 
     public dialog: MatDialog, private router: Router, private shepherdService: ShepherdService) {
     this.session = {
       isSinglePlayer: this.settings.gameMode === GameMode.SINGLE_PLAYER,
@@ -54,6 +56,7 @@ export class GameComponent implements OnInit, AfterViewInit {
       this.currLevel = this.levelGeneratorService.generateLevel();
     }
   }
+
   ngAfterViewInit(): void {
     if (this.settings.showTutorial) {
       setTimeout(() => this.showIntro(), 500);
@@ -108,6 +111,11 @@ export class GameComponent implements OnInit, AfterViewInit {
     });
   }
 
+  private switchToTab(idx: number) {
+    console.log(`switching to tab ${idx}`);
+    this.currTab = idx;
+  }
+
   private showIntro() {
     this.shepherdService.defaultStepOptions = {
       scrollTo: true,
@@ -116,8 +124,11 @@ export class GameComponent implements OnInit, AfterViewInit {
       },
     };
     this.shepherdService.modal = true;
-    this.shepherdService.requiredElements = sheperdRequiredElements;
-    this.shepherdService.addSteps(generateSteps(this.currLevel?.solution as any, this.currLevel?.characters.find(c => c.isCorrect)?.name as any) as any);
+    this.shepherdService.requiredElements = this.settings.isMobile ? sheperdMobileRequiredElements : sheperdRequiredElements;
+    const stepGeneratorFunction = this.settings.isMobile ? generateMobileSteps : generateSteps;
+    this.shepherdService.addSteps(stepGeneratorFunction(this.currLevel?.solution as any, 
+                                    this.currLevel?.characters.find(c => c.isCorrect)?.name as any, 
+                                    (idx) => this.switchToTab(idx)) as any);
     this.shepherdService.start();
   }
 

@@ -1,5 +1,5 @@
 <div class="outer">
-  <div class="container">
+  <div [classList]="settings.isMobile ? 'mobile-container' : 'container'">
     <router-outlet></router-outlet>
   </div>
 </div>

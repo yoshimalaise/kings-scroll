@@ -1,5 +1,4 @@
-.outer {
-  background-color: #373E98;
+.outer {  
   width: 100%;
   height: 100%;
   display: flex;
@@ -8,10 +7,15 @@
 }
 
 .container {
-  background-color: #373E98;
   width: 100%;
   max-width: 1200px;
   height: 700px;
   overflow-y: auto;
+  padding: 5px;
+}
+
+.mobile-container {
+  width: 100%;
+  height: 100%;
   padding: 5px;
 }
