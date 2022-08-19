@@ -17,9 +17,9 @@
 
 <!-- this section is rendered on mobile screens -->
 <div class="mobile-gamefield" *ngIf="currLevel && settings.isMobile">
-  <mat-tab-group [preserveContent]="true" class="menu-tabs" mat-stretch-tabs headerPosition="below">
+  <mat-tab-group [selectedIndex]="currTab" [preserveContent]="true" class="menu-tabs" mat-stretch-tabs headerPosition="below">
 
-    <mat-tab [isActive]="true" label="scroll">
+    <mat-tab label="scroll">
       <ng-template mat-tab-label>
         <mat-icon class="example-tab-icon">receipt_long</mat-icon>
       </ng-template>

@@ -28,7 +28,7 @@ import { generateMobileSteps, sheperdMobileRequiredElements } from './tour.mobil
 export class GameComponent implements OnInit, AfterViewInit {
   currLevel?: Level;
   session?: GameSession = undefined;
-  currTab = 1;
+  currTab = 0;
 
   constructor(private levelGeneratorService: LevelGeneratorService, public settings: SettingsService, 
     public dialog: MatDialog, private router: Router, private shepherdService: ShepherdService) {
@@ -56,6 +56,7 @@ export class GameComponent implements OnInit, AfterViewInit {
       this.currLevel = this.levelGeneratorService.generateLevel();
     }
   }
+
   ngAfterViewInit(): void {
     if (this.settings.showTutorial) {
       setTimeout(() => this.showIntro(), 500);
@@ -110,9 +111,9 @@ export class GameComponent implements OnInit, AfterViewInit {
     });
   }
 
-  // only does stuff on mobile
-  private switchToTab(tabIndex: number) {
-    this.currTab = tabIndex;
+  private switchToTab(idx: number) {
+    console.log(`switching to tab ${idx}`);
+    this.currTab = idx;
   }
 
   private showIntro() {
@@ -127,7 +128,7 @@ export class GameComponent implements OnInit, AfterViewInit {
     const stepGeneratorFunction = this.settings.isMobile ? generateMobileSteps : generateSteps;
     this.shepherdService.addSteps(stepGeneratorFunction(this.currLevel?.solution as any, 
                                     this.currLevel?.characters.find(c => c.isCorrect)?.name as any, 
-                                    this.switchToTab.bind(this)) as any);
+                                    (idx) => this.switchToTab(idx)) as any);
     this.shepherdService.start();
   }
 
