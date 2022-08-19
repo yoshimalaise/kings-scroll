@@ -17,3 +17,34 @@
 ::ng-deep .shepherd-button-primary {
   background-color: #9B26AF;
 }
+
+/** mobile only styling **/
+.mobile-gamefield {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  justify-items: center;
+}
+
+.mobile-gamefield-container {
+  height: calc(100vh - 150px); // full height minus the height of the tabs
+  overflow-y: auto;
+}
+
+.first-tab-content {
+  height: calc(100vh - 150px); // full height minus the height of the tabs
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-codesnippet-container {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.mobile-tracing-helper-container {
+  flex-grow: 0;
+  max-height: 250px;
+}

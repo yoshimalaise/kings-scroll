@@ -16,6 +16,8 @@ import {MatListModule} from '@angular/material/list';
 import {MatRippleModule} from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatIconModule} from '@angular/material/icon';
 
 import { MenuComponent } from './pages/menu/menu.component';
 import { SettingsComponent } from './pages/settings/settings.component';
@@ -65,7 +67,9 @@ import { TracingHelperComponent } from './components/tracing-helper/tracing-help
     MatButtonToggleModule,
     MatListModule,
     MatRippleModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatTabsModule,
+    MatIconModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],
