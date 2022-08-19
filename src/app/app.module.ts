@@ -34,6 +34,8 @@ import { GameOverSinglePlayerDialogComponent } from './dialogs/single-player/gam
 import { FormsModule } from '@angular/forms';
 import { PlayerOverviewComponent } from './components/player-overview/player-overview.component';
 import { TracingHelperComponent } from './components/tracing-helper/tracing-helper.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,13 @@ import { TracingHelperComponent } from './components/tracing-helper/tracing-help
     MatRippleModule,
     MatCheckboxModule,
     MatTabsModule,
-    MatIconModule
+    MatIconModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],
