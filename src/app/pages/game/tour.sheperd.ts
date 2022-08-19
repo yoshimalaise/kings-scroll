@@ -91,7 +91,7 @@ const steps = [
 ];
 
 
-export function generateSteps(solution: PropertyCombination, chosenName: string) {
+export function generateSteps(solution: PropertyCombination, chosenName: string, navigationCallback: (x: number) => void) {
   return [
     ...steps,
     {

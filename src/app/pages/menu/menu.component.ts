@@ -10,7 +10,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 })
 export class MenuComponent implements OnInit {
 
-  constructor(private router: Router, private settings: SettingsService) { }
+  constructor(private router: Router, public settings: SettingsService) { }
 
   ngOnInit(): void {
   }

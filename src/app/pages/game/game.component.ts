@@ -18,6 +18,7 @@ import { LevelGeneratorService } from 'src/app/services/level-generator.service'
 import { SettingsService } from 'src/app/services/settings.service';
 import { ShepherdService } from 'angular-shepherd';
 import { sheperdRequiredElements, generateSteps } from './tour.sheperd';
+import { generateMobileSteps, sheperdMobileRequiredElements } from './tour.mobile.sheperd';
 
 @Component({
   selector: 'app-game',
@@ -27,6 +28,7 @@ import { sheperdRequiredElements, generateSteps } from './tour.sheperd';
 export class GameComponent implements OnInit, AfterViewInit {
   currLevel?: Level;
   session?: GameSession = undefined;
+  currTab = 1;
 
   constructor(private levelGeneratorService: LevelGeneratorService, public settings: SettingsService, 
     public dialog: MatDialog, private router: Router, private shepherdService: ShepherdService) {
@@ -108,6 +110,11 @@ export class GameComponent implements OnInit, AfterViewInit {
     });
   }
 
+  // only does stuff on mobile
+  private switchToTab(tabIndex: number) {
+    this.currTab = tabIndex;
+  }
+
   private showIntro() {
     this.shepherdService.defaultStepOptions = {
       scrollTo: true,
@@ -116,8 +123,11 @@ export class GameComponent implements OnInit, AfterViewInit {
       },
     };
     this.shepherdService.modal = true;
-    this.shepherdService.requiredElements = sheperdRequiredElements;
-    this.shepherdService.addSteps(generateSteps(this.currLevel?.solution as any, this.currLevel?.characters.find(c => c.isCorrect)?.name as any) as any);
+    this.shepherdService.requiredElements = this.settings.isMobile ? sheperdMobileRequiredElements : sheperdRequiredElements;
+    const stepGeneratorFunction = this.settings.isMobile ? generateMobileSteps : generateSteps;
+    this.shepherdService.addSteps(stepGeneratorFunction(this.currLevel?.solution as any, 
+                                    this.currLevel?.characters.find(c => c.isCorrect)?.name as any, 
+                                    this.switchToTab.bind(this)) as any);
     this.shepherdService.start();
   }
 
