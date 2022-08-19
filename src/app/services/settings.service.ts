@@ -28,6 +28,6 @@ export class SettingsService {
   }
 
   constructor(private deviceService: DeviceDetectorService) { 
-    this.isMobile = deviceService.isMobile();
+    this.isMobile = deviceService.isMobile() || deviceService.isTablet();
   }
 }
