@@ -72,7 +72,7 @@ export function generateMobileSteps(solution: PropertyCombination, chosenName: s
       on: 'top'
     },
     title: 'Character grid!',
-    text: ['Try to click on the character that matches the result after running the code! For example if the variable headWear is false after running the code you should find a character that is not wearing any hat!'],
+    text: ['Try to click on the character that matches the result after running the code! For example if the variable helmet is false after running the code you should find a character that is not wearing any hat!'],
     buttons: [
       {
         classes: 'shepherd-button-primary',
@@ -110,19 +110,19 @@ font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
 <tbody>
 <tr>
   <td class="tg-0lax">headWear</td>
-  <td class="tg-0lax">${solution.headWear}</td>
+  <td class="tg-0lax">${solution.helmet}</td>
 </tr>
 <tr>
   <td class="tg-0lax">tie</td>
-  <td class="tg-0lax">${solution.tie}</td>
+  <td class="tg-0lax">${solution.shield}</td>
 </tr>
 <tr>
   <td class="tg-0lax">glasses</td>
-  <td class="tg-0lax">${solution.glasses}</td>
+  <td class="tg-0lax">${solution.sword}</td>
 </tr>
 <tr>
   <td class="tg-0lax">blue</td>
-  <td class="tg-0lax">${solution.blue}</td>
+  <td class="tg-0lax">${solution.cape}</td>
 </tr>
 </tbody>
 </table>
@@ -155,8 +155,8 @@ Feel free to verify!`
     title: 'The chosen one!',
     text: [
       `It looks like ${chosenName} is the one we are looking for!
-    They are ${solution.blue ? 'blue' : 'pink'}, are${solution.glasses ? ' ' : ' not'} wearing glasses,
-    are${solution.tie ? ' ' : ' not'} wearing a tie and are${solution.headWear ? ' ' : ' not'} wearing ${solution.headWear ? 'some' : 'any'} kind of headWear.
+    They are ${solution.cape ? 'blue' : 'pink'}, are${solution.sword ? ' ' : ' not'} wearing glasses,
+    are${solution.shield ? ' ' : ' not'} wearing a tie and are${solution.helmet ? ' ' : ' not'} wearing ${solution.helmet ? 'some' : 'any'} kind of headWear.
     `
     ],
     buttons: [

@@ -73,7 +73,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   handleCharSelection(char: Character) {
     const s = this.currLevel?.solution;
     const p = char.properties;
-    const isCorrect = (s?.blue === p.blue && s.glasses === p.glasses && s.headWear === p.headWear && s.tie === p.tie);
+    const isCorrect = (s?.cape === p.cape && s.sword === p.sword && s.helmet === p.helmet && s.shield === p.shield);
 
     const dialogRef = this.dialog.open(this.settings.gameMode === GameMode.SINGLE_PLAYER ? AwardPointsSinglePlayerDialogComponent as any : AwardPointsCoopDialogComponent, {
       data: {  session: this.session, correctChoice: isCorrect},

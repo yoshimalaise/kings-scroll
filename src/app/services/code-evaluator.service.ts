@@ -12,7 +12,7 @@ export class CodeEvaluatorService {
     // eval feels super scary, but should technically be fine 
     // since the only code evaluated comes directly from our ast generator without user input..
     // famous last words...
-    const result = eval(`${snippet}\n const extract = () => { return ( {headWear, tie, blue, glasses} );} \n extract();`);
+    const result = eval(`${snippet}\n const extract = () => { return ( {helmet, shield, sword, cape} );} \n extract();`);
     // ^ add extra function since eval gives back the last result
     return result
   }

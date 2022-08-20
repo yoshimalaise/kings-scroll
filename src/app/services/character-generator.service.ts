@@ -38,10 +38,10 @@ export class CharacterGeneratorService {
             results.push({
               name: blue ? this.maleNames[maleIdx++] : this.femaleNames[femaleIdx++],
               properties: {
-                headWear,
-                glasses,
-                blue,
-                tie
+                helmet: headWear,
+                sword: glasses,
+                cape: blue,
+                shield: tie
               },
               visualProps: []
             });
@@ -55,15 +55,15 @@ export class CharacterGeneratorService {
 
   private addCosmetics(chars: Character[]): Character[] {
     chars.forEach(c => {
-      if (c.properties.glasses) {
+      if (c.properties.sword) {
         c.visualProps.push(this.glasses[Math.floor(Math.random() * this.glasses.length)]);
       }
 
-      if (c.properties.headWear) {
+      if (c.properties.helmet) {
         c.visualProps.push(this.headWear[Math.floor(Math.random() * this.headWear.length)]);
       }
 
-      if (c.properties.tie){
+      if (c.properties.shield){
         c.visualProps.push(this.ties[Math.floor(Math.random() * this.ties.length)]);
       }
 

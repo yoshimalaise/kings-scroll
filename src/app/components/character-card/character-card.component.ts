@@ -28,7 +28,7 @@ export class CharacterCardComponent implements OnInit {
     const ctx = canvasEl.getContext('2d');
     ctx.fillStyle = '#ffffff';
     ctx.fillRect(0,0,this.width, this.height); 
-    const catImg = await this.loadImg(`assets/characters/${ this.character?.properties.blue ? 'blue_octocat.png' : 'pink_octocat.png'}`);
+    const catImg = await this.loadImg(`assets/characters/${ this.character?.properties.cape ? 'blue_octocat.png' : 'pink_octocat.png'}`);
     ctx.drawImage(catImg, 0, 0, this.width, this.height);
     for (const cosmetic of this.character?.visualProps) {
       const cosmImg = await this.loadImg(cosmetic.path);
