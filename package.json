@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "start-pwa": "ng build --prod && http-server -p 8080 -c-1 dist/whac-a-mole"
+    "start-pwa": "ng build --configuration production && http-server -p 8080 -c-1 dist/whac-a-mole"
   },
   "private": true,
   "dependencies": {
