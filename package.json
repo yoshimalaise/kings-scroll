@@ -1,12 +1,14 @@
 {
-  "name": "whac-a-mole",
+  "name": "Kings' Scroll: The Search for the Chosen One",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "start-pwa": "ng build --configuration production && http-server -p 8080 -c-1 dist/kings-scroll",
+    "start-tunnel": "lt -p 8080"
   },
   "private": true,
   "dependencies": {
@@ -20,6 +22,7 @@
     "@angular/platform-browser": "^14.1.0",
     "@angular/platform-browser-dynamic": "^14.1.0",
     "@angular/router": "^14.1.0",
+    "@angular/service-worker": "^14.1.0",
     "acorn": "^8.8.0",
     "acorn-walk": "^8.2.0",
     "angular-shepherd": "^14.0.0",
