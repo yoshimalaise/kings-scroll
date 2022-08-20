@@ -1,7 +1,7 @@
 {
-  "name": "whac-a-mole",
-  "short_name": "whac-a-mole",
-  "theme_color": "#1976d2",
+  "name": "Kings' Scroll: The Search for the Chosen One",
+  "short_name": "Kings' Scroll",
+  "theme_color": "#da532c",
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "./",
