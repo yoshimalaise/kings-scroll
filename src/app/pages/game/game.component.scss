@@ -14,8 +14,21 @@
   flex-direction: column;
 }
 
+/** shepherd styling **/
 ::ng-deep .shepherd-button-primary {
   background-color: #9B26AF;
+}
+
+::ng-deep .archmage-image{
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+::ng-deep .dialog-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 /** mobile only styling **/

@@ -35,7 +35,7 @@ const steps = [
           on: 'right'
         },
         title: 'Code snippet!',
-        text: ['This is the code snippet that you should understand. Try to trace the execution of the script and predict the end-state of the boolean values.'],
+        text: [makeWizardDialogBody('This is the code snippet that you should understand. Try to trace the execution of the script and predict the end-state of the boolean values.')],
         buttons: [
             {
               classes: 'shepherd-button-primary',
@@ -52,7 +52,7 @@ const steps = [
           on: 'right'
         },
         title: 'Code tracer!',
-        text: ['This is your scribble zone that you can use to help yourself when tracing the code.'],
+        text: [makeWizardDialogBody('This is your scribble zone that you can use to help yourself when tracing the code.')],
         buttons: [
             {
               classes: 'shepherd-button-primary',
@@ -74,7 +74,7 @@ const steps = [
           on: 'left'
         },
         title: 'Character grid!',
-        text: ['Try to click on the character that matches the result after running the code! For example if the variable headWear is false after running the code you should find a character that is not wearing any hat!'],
+        text: [makeWizardDialogBody('Try to click on the character that matches the result after running the code! For example if the variable headWear is false after running the code you should find a character that is not wearing any hat!')],
         buttons: [
             {
               classes: 'shepherd-button-primary',
@@ -102,7 +102,7 @@ export function generateSteps(solution: PropertyCombination, chosenName: string,
         on: 'right'
       },
       title: 'Trace the code!',
-      text: [
+      text: [makeWizardDialogBody(
         `In this case executing the code will result in the following table:<br><br>
         
         <style type="text/css">
@@ -136,7 +136,7 @@ export function generateSteps(solution: PropertyCombination, chosenName: string,
 
 <br>
 Feel free to verify!`
-      ],
+      )],
       buttons: [
           {
             classes: 'shepherd-button-primary',
@@ -158,12 +158,12 @@ Feel free to verify!`
       on: 'left'
     },
     title: 'The chosen one!',
-    text: [
+    text: [makeWizardDialogBody(
       `It looks like ${chosenName} is the one we are looking for!
       They are ${solution.cape ? 'blue' : 'pink'}, are${solution.sword ? ' ' : ' not'} wearing glasses,
       are${solution.shield ? ' ' : ' not'} wearing a tie and are${solution.helmet ? ' ' : ' not'} wearing ${solution.helmet ? 'some' : 'any'} kind of headWear.
       `
-    ],
+    )],
     buttons: [
         {
           classes: 'shepherd-button-primary',
@@ -186,7 +186,7 @@ export const successMessageTour = [
     ...template,
     id: 'success',
     title: 'Enemy defeated!',
-    text: ['Good job! You managed to select the right hero and we saved the city!'],
+    text: [makeWizardDialogBody('Good job! You managed to select the right hero and we saved the city!')],
     buttons: [
         {
           classes: 'shepherd-button-primary',
@@ -202,7 +202,7 @@ export const failureMessageTour = [
     ...template,
     id: 'failure',
     title: 'Battle lost!',
-    text: ['Oh no! The hero you selected lost the battle! It looks like you picked the wrong hero!'],
+    text: [makeWizardDialogBody('Oh no! The hero you selected lost the battle! It looks like you picked the wrong hero!')],
     buttons: [
         {
           classes: 'shepherd-button-primary',
@@ -212,3 +212,14 @@ export const failureMessageTour = [
     ]
   },
 ];
+
+export function makeWizardDialogBody(content: string) {
+  return (
+`
+<div class="dialog-container">
+    <img height = "128" class="archmage-image" src="assets/archmage.png"/>
+    <div class="dialog-content">${content}</div>
+</div>
+`
+  );
+}

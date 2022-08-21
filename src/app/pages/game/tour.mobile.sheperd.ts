@@ -1,4 +1,5 @@
 import { PropertyCombination } from "src/app/model/property-combination.interface";
+import { makeWizardDialogBody } from "./tour.sheperd";
 
 export const sheperdMobileRequiredElements = [];
 
@@ -31,7 +32,7 @@ export function generateMobileSteps(solution: PropertyCombination, chosenName: s
       on: 'bottom'
     },
     title: 'Code snippet!',
-    text: ['This is the code snippet that you should understand. Try to trace the execution of the script and predict the end-state of the boolean values.'],
+    text: [makeWizardDialogBody('This is the code snippet that you should understand. Try to trace the execution of the script and predict the end-state of the boolean values.')],
     buttons: [
       {
         classes: 'shepherd-button-primary',
@@ -49,7 +50,7 @@ export function generateMobileSteps(solution: PropertyCombination, chosenName: s
       on: 'top'
     },
     title: 'Code tracer!',
-    text: ['This is your scribble zone that you can use to help yourself when tracing the code.'],
+    text: [makeWizardDialogBody('This is your scribble zone that you can use to help yourself when tracing the code.')],
     buttons: [
       {
         classes: 'shepherd-button-primary',
@@ -72,7 +73,7 @@ export function generateMobileSteps(solution: PropertyCombination, chosenName: s
       on: 'top'
     },
     title: 'Character grid!',
-    text: ['Try to click on the character that matches the result after running the code! For example if the variable helmet is false after running the code you should find a character that is not wearing any hat!'],
+    text: [makeWizardDialogBody('Try to click on the character that matches the result after running the code! For example if the variable helmet is false after running the code you should find a character that is not wearing any hat!')],
     buttons: [
       {
         classes: 'shepherd-button-primary',
@@ -95,7 +96,7 @@ export function generateMobileSteps(solution: PropertyCombination, chosenName: s
       on: 'bottom'
     },
     title: 'Trace the code!',
-    text: [
+    text: [makeWizardDialogBody(
       `In this case executing the code will result in the following table:<br><br>
       
       <style type="text/css">
@@ -129,7 +130,7 @@ font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
 
 <br>
 Feel free to verify!`
-    ],
+    )],
     buttons: [
       {
         classes: 'shepherd-button-primary',
@@ -153,12 +154,12 @@ Feel free to verify!`
     },
     scrollTo: true,
     title: 'The chosen one!',
-    text: [
+    text: [makeWizardDialogBody(
       `It looks like ${chosenName} is the one we are looking for!
     They are ${solution.cape ? 'blue' : 'pink'}, are${solution.sword ? ' ' : ' not'} wearing glasses,
     are${solution.shield ? ' ' : ' not'} wearing a tie and are${solution.helmet ? ' ' : ' not'} wearing ${solution.helmet ? 'some' : 'any'} kind of headWear.
     `
-    ],
+    )],
     buttons: [
       {
         classes: 'shepherd-button-primary',
