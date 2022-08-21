@@ -179,3 +179,36 @@ Feel free to verify!`
 },
   ];
 }
+
+
+export const successMessageTour = [
+  {
+    ...template,
+    id: 'success',
+    title: 'Enemy defeated!',
+    text: ['Good job! You managed to select the right hero and we saved the city!'],
+    buttons: [
+        {
+          classes: 'shepherd-button-primary',
+          text: 'Next',
+          type: 'next'
+        }
+    ]
+  },
+];
+
+export const failureMessageTour = [
+  {
+    ...template,
+    id: 'failure',
+    title: 'Battle lost!',
+    text: ['Oh no! The hero you selected lost the battle! It looks like you picked the wrong hero!'],
+    buttons: [
+        {
+          classes: 'shepherd-button-primary',
+          text: 'Next',
+          type: 'next'
+        }
+    ]
+  },
+];
