@@ -17,8 +17,8 @@ export class LevelGeneratorService {
     const solution = this.evalService.evaluateCode(snippet);
     
     const chars = this.charGen.generateCharacterSet();
-    chars.forEach(c => c.isCorrect = c.properties.blue === solution.blue && c.properties.tie === solution.tie 
-                          && c.properties.headWear === solution.headWear && c.properties.glasses === solution.glasses);
+    chars.forEach(c => c.isCorrect = c.properties.cape === solution.cape && c.properties.shield === solution.shield 
+                          && c.properties.helmet === solution.helmet && c.properties.sword === solution.sword);
 
 
     console.log('the solution', chars.find(c => c.isCorrect)?.name);

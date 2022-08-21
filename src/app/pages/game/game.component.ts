@@ -17,7 +17,7 @@ import { GameOverVMAction } from 'src/app/model/view-models/game-over-action-vm.
 import { LevelGeneratorService } from 'src/app/services/level-generator.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { ShepherdService } from 'angular-shepherd';
-import { sheperdRequiredElements, generateSteps } from './tour.sheperd';
+import { sheperdRequiredElements, generateSteps, successMessageTour, failureMessageTour } from './tour.sheperd';
 import { generateMobileSteps, sheperdMobileRequiredElements } from './tour.mobile.sheperd';
 
 @Component({
@@ -41,20 +41,8 @@ export class GameComponent implements OnInit, AfterViewInit {
       participants: []
     } as any;
 
-    if (!this.settings.showTutorial) {
-      const dialogRef = this.dialog.open(this.settings.gameMode === GameMode.SINGLE_PLAYER ? SetupSinglePlayerDialogComponent as any: SetupCoopDialogComponent, {
-        data: this.session as any,
-        disableClose: true
-      });
-  
-      dialogRef.afterClosed().subscribe(result => {
-        this.session = result;
-        this.currLevel = this.levelGeneratorService.generateLevel();
-      });
-    } else {
-      (this.session  as SinglePlayerSession).playerName = 'Tutorial';
-      this.currLevel = this.levelGeneratorService.generateLevel();
-    }
+    this.currLevel = this.levelGeneratorService.generateLevel();
+    this.setUpSheperd();
   }
 
   ngAfterViewInit(): void {
@@ -68,27 +56,38 @@ export class GameComponent implements OnInit, AfterViewInit {
 
   loadNextLevel() {
     this.currLevel = this.levelGeneratorService.generateLevel();
+    this.switchToTab(0);
+  }
+
+  private setUpSheperd() {
+    this.shepherdService.defaultStepOptions = {
+      scrollTo: true,
+      cancelIcon: {
+        enabled: false
+      },
+    };
+    this.shepherdService.modal = true;
+    if (this.shepherdService.tourObject) {
+      this.shepherdService.tourObject.steps = [];
+    }
+    this.shepherdService.onTourFinish = () => {};
   }
 
   handleCharSelection(char: Character) {
     const s = this.currLevel?.solution;
     const p = char.properties;
-    const isCorrect = (s?.blue === p.blue && s.glasses === p.glasses && s.headWear === p.headWear && s.tie === p.tie);
-
-    const dialogRef = this.dialog.open(this.settings.gameMode === GameMode.SINGLE_PLAYER ? AwardPointsSinglePlayerDialogComponent as any : AwardPointsCoopDialogComponent, {
-      data: {  session: this.session, correctChoice: isCorrect},
-      disableClose: true,
-      width: '500px'
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result.isFinished) {
-        this.showGameOverScreen();
-      } else {
-        this.loadNextLevel();
-      }
-    });
-    
+    this.setUpSheperd();
+    this.shepherdService.onTourFinish = () => this.loadNextLevel();
+    const isCorrect = (s?.cape === p.cape && s.sword === p.sword && s.helmet === p.helmet && s.shield === p.shield);
+    const sess = (this.session as SinglePlayerSession);
+    if (isCorrect) {
+      sess.score++ 
+      this.shepherdService.addSteps(successMessageTour);
+    } else {
+      sess.score = Math.max(0, sess.score--);
+      this.shepherdService.addSteps(failureMessageTour);
+    }
+    this.shepherdService.start();
   }
 
   private showGameOverScreen() {
@@ -112,18 +111,11 @@ export class GameComponent implements OnInit, AfterViewInit {
   }
 
   private switchToTab(idx: number) {
-    console.log(`switching to tab ${idx}`);
     this.currTab = idx;
   }
 
   private showIntro() {
-    this.shepherdService.defaultStepOptions = {
-      scrollTo: true,
-      cancelIcon: {
-        enabled: false
-      },
-    };
-    this.shepherdService.modal = true;
+    this.setUpSheperd();
     this.shepherdService.requiredElements = this.settings.isMobile ? sheperdMobileRequiredElements : sheperdRequiredElements;
     const stepGeneratorFunction = this.settings.isMobile ? generateMobileSteps : generateSteps;
     this.shepherdService.addSteps(stepGeneratorFunction(this.currLevel?.solution as any, 

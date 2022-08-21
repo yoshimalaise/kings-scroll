@@ -13,4 +13,14 @@ export interface VisualProp {
   width: number,
   height: number,
   path: string;
+  layer: Layer;
+}
+
+export enum Layer {
+  CAPE_BACKGROUND = 1,
+  ARMOR,
+  CAPE_FOREGROUND,
+  FACE,
+  FACE_OVERLAY,
+  WEARABLE,
 }

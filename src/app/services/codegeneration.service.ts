@@ -13,7 +13,7 @@ export class CodegenerationService {
   private declaredVars: string[] = [];
 
   private generators: any[] = [];
-  private endSetVars = ['headWear', 'tie', 'glasses', 'blue'];
+  private endSetVars = ['helmet', 'shield', 'sword', 'cape'];
   private extendedEndSetVars = [...this.endSetVars, ...this.endSetVars.map(v => `!${v}`), 'true', 'false'];
   private comparators = ['<', '<=', '===', '!==', '>', '>='];
   private varCtr = 1;

@@ -1,6 +1,6 @@
 export interface PropertyCombination {
-  headWear: boolean;
-  tie: boolean;
-  glasses: boolean;
-  blue: boolean;
+  helmet: boolean;
+  shield: boolean;
+  sword: boolean;
+  cape: boolean;
 }
