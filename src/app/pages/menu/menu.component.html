@@ -1,6 +1,7 @@
 <div class="menu">
   <div class="logo-container">
-    <img alt="" src="assets/titlescreen/titlescreen.png" />
+    <img *ngIf="!settings.isMobile" alt="" src="assets/titlescreen/titlescreen.png" />
+    <img *ngIf="settings.isMobile" alt="" src="assets/titlescreen/titlescreen-mobile.png" />
   </div>
 
   <div class="button-section">
