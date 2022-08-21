@@ -1,5 +1,5 @@
 import { PropertyCombination } from "src/app/model/property-combination.interface";
-import { makeWizardDialogBody } from "./tour.sheperd";
+import { generalWorldIntroduction, makeWizardDialogBody } from "./tour.sheperd";
 
 export const sheperdMobileRequiredElements = [];
 
@@ -23,7 +23,9 @@ export function generateMobileSteps(solution: PropertyCombination, chosenName: s
     });
   }
   
-  return [{
+  return [
+  ...generalWorldIntroduction,
+  {
     ...template,
     id: 'codeSnippet',
     beforeShowPromise: () => navigate(snippetIdx),
@@ -32,7 +34,7 @@ export function generateMobileSteps(solution: PropertyCombination, chosenName: s
       on: 'bottom'
     },
     title: 'Code snippet!',
-    text: [makeWizardDialogBody('This is the code snippet that you should understand. Try to trace the execution of the script and predict the end-state of the boolean values.')],
+    text: [makeWizardDialogBody('This is the scroll that contains the description of the chosen one. Do you know what these symbols mean?')],
     buttons: [
       {
         classes: 'shepherd-button-primary',
@@ -50,13 +52,8 @@ export function generateMobileSteps(solution: PropertyCombination, chosenName: s
       on: 'top'
     },
     title: 'Code tracer!',
-    text: [makeWizardDialogBody('This is your scribble zone that you can use to help yourself when tracing the code.')],
+    text: [makeWizardDialogBody('The ancient mages also left some tools behind that are supposed to help you keep track of the state as you are deciphering the scroll, I am sure these tools can be of great help!')],
     buttons: [
-      {
-        classes: 'shepherd-button-primary',
-        text: 'Back',
-        type: 'back'
-      },
       {
         classes: 'shepherd-button-primary',
         text: 'Next',
@@ -73,102 +70,11 @@ export function generateMobileSteps(solution: PropertyCombination, chosenName: s
       on: 'top'
     },
     title: 'Character grid!',
-    text: [makeWizardDialogBody('Try to click on the character that matches the result after running the code! For example if the variable helmet is false after running the code you should find a character that is not wearing any hat!')],
+    text: [makeWizardDialogBody('Here you can see all the champions that are currently in the kingdom, if you have found the one that the scroll is talking about feel free to select them!<br><br>No time to waste!')],
     buttons: [
-      {
-        classes: 'shepherd-button-primary',
-        text: 'Back',
-        type: 'back'
-      },
       {
         classes: 'shepherd-button-primary',
         text: 'Next',
-        type: 'next'
-      }
-    ]
-  },
-  {
-    ...template,
-    id: 'solution',
-    beforeShowPromise: () => navigate(snippetIdx),
-    attachTo: {
-      element: '.mobile-codesnippet-container',
-      on: 'bottom'
-    },
-    title: 'Trace the code!',
-    text: [makeWizardDialogBody(
-      `In this case executing the code will result in the following table:<br><br>
-      
-      <style type="text/css">
-.tg  {border-collapse:collapse;border-spacing:0;}
-.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg .tg-0lax{text-align:left;vertical-align:top}
-</style>
-<table class="tg">
-<tbody>
-<tr>
-  <td class="tg-0lax">headWear</td>
-  <td class="tg-0lax">${solution.helmet}</td>
-</tr>
-<tr>
-  <td class="tg-0lax">tie</td>
-  <td class="tg-0lax">${solution.shield}</td>
-</tr>
-<tr>
-  <td class="tg-0lax">glasses</td>
-  <td class="tg-0lax">${solution.sword}</td>
-</tr>
-<tr>
-  <td class="tg-0lax">blue</td>
-  <td class="tg-0lax">${solution.cape}</td>
-</tr>
-</tbody>
-</table>
-
-<br>
-Feel free to verify!`
-    )],
-    buttons: [
-      {
-        classes: 'shepherd-button-primary',
-        text: 'Back',
-        type: 'back'
-      },
-      {
-        classes: 'shepherd-button-primary',
-        text: 'Next',
-        type: 'next'
-      }
-    ]
-  },
-  {
-    ...template,
-    id: 'chosen one',
-    beforeShowPromise: () => navigate(characterIdx),
-    attachTo: {
-      element: '.chosen-one',
-      on: 'top'
-    },
-    scrollTo: true,
-    title: 'The chosen one!',
-    text: [makeWizardDialogBody(
-      `It looks like ${chosenName} is the one we are looking for!
-    They are ${solution.cape ? 'blue' : 'pink'}, are${solution.sword ? ' ' : ' not'} wearing glasses,
-    are${solution.shield ? ' ' : ' not'} wearing a tie and are${solution.helmet ? ' ' : ' not'} wearing ${solution.helmet ? 'some' : 'any'} kind of headWear.
-    `
-    )],
-    buttons: [
-      {
-        classes: 'shepherd-button-primary',
-        text: 'Back',
-        type: 'back'
-      },
-      {
-        classes: 'shepherd-button-primary',
-        text: 'Finish tutorial',
         type: 'next'
       }
     ]

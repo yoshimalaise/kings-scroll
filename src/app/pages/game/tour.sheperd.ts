@@ -1,4 +1,5 @@
 import { PropertyCombination } from "src/app/model/property-combination.interface";
+import { archMageName, dragonName, dragonTitle, kingdomName } from "./names-and-locations";
 
 export const sheperdRequiredElements = [
     {
@@ -24,9 +25,45 @@ const template = {
     },
     highlightClass: 'highlight',
     scrollTo: false,
+    title: `${archMageName} - The Archmage`,
+    buttons: [
+      {
+        classes: 'shepherd-button-primary',
+        text: 'Next',
+        type: 'next'
+      }
+  ]
 } 
 
+export const generalWorldIntroduction = [
+  {
+    ...template,
+    id: 'welcome',
+    text: [makeWizardDialogBody(`Greetings adventurer, welcome to the kingdom of ${kingdomName}!<br/><br/>My name is ${archMageName}, archmage and the king's most trusted advisor.`)],
+  },
+  {
+    ...template,
+    id: 'welcome',
+    text: [makeWizardDialogBody(
+      `Normally our kingdom is a beautiful place to visit, but I am afraid you caught us at a bad time.
+      <br/><br/>
+      Our kingdom is currently under attack by the evil dragon ${dragonName}, ${dragonTitle}.`
+      )],
+  },
+  {
+    ...template,
+    id: 'welcome',
+    text: [makeWizardDialogBody(
+      `According to ancient legends the magic scroll should tell us who to appoint as our chosen champion, the only one that can defeat ${dragonName}!
+      <br/><br/>
+      Unfortunately however I do not understand what the scroll is trying to tell me!
+      Can you help me decipher the scroll?`
+      )],
+  },
+];
+
 const steps = [
+    ...generalWorldIntroduction,
     {
         ...template,
         id: 'codeSnippet',
@@ -34,15 +71,7 @@ const steps = [
           element: '.codesnippet-container', 
           on: 'right'
         },
-        title: 'Code snippet!',
-        text: [makeWizardDialogBody('This is the code snippet that you should understand. Try to trace the execution of the script and predict the end-state of the boolean values.')],
-        buttons: [
-            {
-              classes: 'shepherd-button-primary',
-              text: 'Next',
-              type: 'next'
-            }
-        ]
+        text: [makeWizardDialogBody('This is the scroll that contains the description of the chosen one. Do you know what these symbols mean?')],
     },
     {
         ...template,
@@ -51,20 +80,7 @@ const steps = [
           element: '.tracing-helper-container', 
           on: 'right'
         },
-        title: 'Code tracer!',
-        text: [makeWizardDialogBody('This is your scribble zone that you can use to help yourself when tracing the code.')],
-        buttons: [
-            {
-              classes: 'shepherd-button-primary',
-              text: 'Back',
-              type: 'back'
-            },
-            {
-              classes: 'shepherd-button-primary',
-              text: 'Next',
-              type: 'next'
-            }
-        ]
+        text: [makeWizardDialogBody('The ancient mages also left some tools behind that are supposed to help you keep track of the state as you are deciphering the scroll, I am sure these tools can be of great help!')],
     },
     {
         ...template,
@@ -73,17 +89,12 @@ const steps = [
           element: '.gamefield-container', 
           on: 'left'
         },
-        title: 'Character grid!',
-        text: [makeWizardDialogBody('Try to click on the character that matches the result after running the code! For example if the variable headWear is false after running the code you should find a character that is not wearing any hat!')],
+        text: [makeWizardDialogBody(`Here you can see all the champions that are currently in the kingdom, if you have found the one that the scroll is talking about feel free to select them!
+        <br><br>No time to waste!`)],
         buttons: [
             {
               classes: 'shepherd-button-primary',
-              text: 'Back',
-              type: 'back'
-            },
-            {
-              classes: 'shepherd-button-primary',
-              text: 'Next',
+              text: 'Start the adventure!',
               type: 'next'
             }
         ]
@@ -94,89 +105,6 @@ const steps = [
 export function generateSteps(solution: PropertyCombination, chosenName: string, navigationCallback: (x: number) => void) {
   return [
     ...steps,
-    {
-      ...template,
-      id: 'solution',
-      attachTo: { 
-        element: '.codesnippet-container', 
-        on: 'right'
-      },
-      title: 'Trace the code!',
-      text: [makeWizardDialogBody(
-        `In this case executing the code will result in the following table:<br><br>
-        
-        <style type="text/css">
-.tg  {border-collapse:collapse;border-spacing:0;}
-.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg .tg-0lax{text-align:left;vertical-align:top}
-</style>
-<table class="tg">
-<tbody>
-  <tr>
-    <td class="tg-0lax">headWear</td>
-    <td class="tg-0lax">${solution.helmet}</td>
-  </tr>
-  <tr>
-    <td class="tg-0lax">tie</td>
-    <td class="tg-0lax">${solution.shield}</td>
-  </tr>
-  <tr>
-    <td class="tg-0lax">glasses</td>
-    <td class="tg-0lax">${solution.sword}</td>
-  </tr>
-  <tr>
-    <td class="tg-0lax">blue</td>
-    <td class="tg-0lax">${solution.cape}</td>
-  </tr>
-</tbody>
-</table>
-
-<br>
-Feel free to verify!`
-      )],
-      buttons: [
-          {
-            classes: 'shepherd-button-primary',
-            text: 'Back',
-            type: 'back'
-          },
-          {
-            classes: 'shepherd-button-primary',
-            text: 'Next',
-            type: 'next'
-          }
-      ]
-  },
-  {
-    ...template,
-    id: 'chosen one',
-    attachTo: { 
-      element: '.chosen-one', 
-      on: 'left'
-    },
-    title: 'The chosen one!',
-    text: [makeWizardDialogBody(
-      `It looks like ${chosenName} is the one we are looking for!
-      They are ${solution.cape ? 'blue' : 'pink'}, are${solution.sword ? ' ' : ' not'} wearing glasses,
-      are${solution.shield ? ' ' : ' not'} wearing a tie and are${solution.helmet ? ' ' : ' not'} wearing ${solution.helmet ? 'some' : 'any'} kind of headWear.
-      `
-    )],
-    buttons: [
-        {
-          classes: 'shepherd-button-primary',
-          text: 'Back',
-          type: 'back'
-        },
-        {
-          classes: 'shepherd-button-primary',
-          text: 'Finish tutorial',
-          type: 'next'
-        }
-    ]
-},
   ];
 }
 
