@@ -1,47 +1,34 @@
 import { Injectable } from '@angular/core';
-import { Character, VisualProp } from '../model/character.interface';
-import { shuffleArray } from '../utils/utils';
+import { Character, Layer, VisualProp } from '../model/character.interface';
+import { getRandomElementFromArr, shuffleArray } from '../utils/utils';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CharacterGeneratorService {
-  private maleNames = ['James', 'Robert', 'John', 'Michael', 'David', 'William', 'Richard', 'Joseph', 'Thomas',
+  private names = ['James', 'Robert', 'John', 'Michael', 'David', 'William', 'Richard', 'Joseph', 'Thomas',
   'Charles', 'Christopher', 'Daniel', 'Matthew', 'Anthony', 'Mark', 'Donald', 'Steven', 'Paul', 'Andrew', 'Joshua',
   'Kenneth', 'Kevin', 'Brian', 'George', 'Timothy', 'Ronald', 'Edward', 'Jason', 'Jeffrey', 'Ryan'];
-  private femaleNames = ['Mary', 'Patricia', 'Jennifer', 'Linda', 'Elizabeth', 'Barbara', 'Susan', 'Jessica',
-  'Sarah', 'Karen', 'Lisa', 'Nancy', 'Betty', 'Margaret', 'Sandra', 'Ashley', 'Kimberly', 'Emily', 'Donna',
-  'Michelle', 'Carol', 'Amanda', 'Dorothy', 'Melissa', 'Deborah', 'Stephanie', 'Rebecca', 'Sharon', 'Laura'];
-
-  private glasses: VisualProp[] = [{ path: 'assets/glasses/glasses-1.webp', x: 20, y: 30, width: 60, height: 40},
-                                  { path: 'assets/glasses/glasses-2.png', x: 30, y: 23, width: 50, height: 70}
-                                  ];
-
-  private headWear: VisualProp[] = [{ path: 'assets/headwear/headwear-1.png', x: 25, y: 0, width: 60, height: 40}];
-  
-  private ties: VisualProp[] = [{ path: 'assets/ties/tie-1.png', x: 45, y: 85, width: 30, height: 60}];
 
   constructor() { }
 
   generateCharacterSet(): Character[] {
-    this.maleNames = shuffleArray(this.maleNames);
-    this.femaleNames = shuffleArray(this.femaleNames);
-    let maleIdx = 0;
-    let femaleIdx = 0;
+    this.names = shuffleArray(this.names);
+    let nameIdx = 0;
 
     const booleanOptions = [true, false];
     let results: Character[] = [];
-    booleanOptions.forEach(headWear => {
-      booleanOptions.forEach(tie => {
-        booleanOptions.forEach(glasses => {
-          booleanOptions.forEach(blue => {
+    booleanOptions.forEach(helmet => {
+      booleanOptions.forEach(shield => {
+        booleanOptions.forEach(sword => {
+          booleanOptions.forEach(cape => {
             results.push({
-              name: blue ? this.maleNames[maleIdx++] : this.femaleNames[femaleIdx++],
+              name: this.names[nameIdx++],
               properties: {
-                helmet: headWear,
-                sword: glasses,
-                cape: blue,
-                shield: tie
+                helmet: helmet,
+                sword: sword,
+                cape: cape,
+                shield: shield
               },
               visualProps: []
             });
@@ -55,18 +42,107 @@ export class CharacterGeneratorService {
 
   private addCosmetics(chars: Character[]): Character[] {
     chars.forEach(c => {
-      if (c.properties.sword) {
-        c.visualProps.push(this.glasses[Math.floor(Math.random() * this.glasses.length)]);
-      }
+      // always show armour
+      const armorColor = getRandomElementFromArr(['bronze', 'iron', 'steel', 'gold', 'mythril', 'adamant', 'runite']);
+      c.visualProps.push({ 
+        path: `assets/knights/armor/${armorColor}_armor.png`,
+        x: 10,
+        y: 40,
+        width: 100,
+        height: 140,
+        layer: Layer.ARMOR
+      });
 
       if (c.properties.helmet) {
-        c.visualProps.push(this.headWear[Math.floor(Math.random() * this.headWear.length)]);
+        // a helmet consists of a helmet and a feather
+        c.visualProps.push({
+          path: `assets/knights/helmet/${armorColor}_helmet.png`,
+          x: 39,
+          y: 16,
+          width: 40,
+          height: 40,
+          layer: Layer.FACE
+        });
+        const featherColor = getRandomElementFromArr(['blue', 'brown', 'gray','green', 'purple', 'wheat']);
+        c.visualProps.push({
+          path: `assets/knights/feather/${featherColor}_feather.png`,
+          x: 30,
+          y: 7,
+          width: 38,
+          height: 38,
+          layer: Layer.FACE_OVERLAY
+        });
+      } else {
+        // if there is no hemlet show face
+        // a face consists of the face and hair
+        const skinTone = getRandomElementFromArr([1, 2, 3, 4, 5]);
+        const hairColor = getRandomElementFromArr(['brown', 'cyan', 'pink', 'purple', 'red']);
+        c.visualProps.push({
+          path: `assets/knights/face/${skinTone}_face.png`,
+          x: 35,
+          y: 17,
+          width: 42,
+          height: 42,
+          layer: Layer.FACE
+        });
+        c.visualProps.push({
+          path: `assets/knights/hair/${hairColor}_hair.png`,
+          x: 34,
+          y: 15,
+          width: 42,
+          height: 42,
+          layer: Layer.FACE_OVERLAY
+        });
+      }
+
+      if(c.properties.cape) {
+        // if a cape is selected it consists of 2 parts of the same color
+        const capeColor = getRandomElementFromArr(['blue', 'brown', 'gray', 'green', 'purple', 'wheat']);
+        c.visualProps.push({ 
+          path: `assets/knights/capes/background/${capeColor}_cape_background.png`,
+          x: 12,
+          y: 45,
+          width: 40,
+          height: 90,
+          layer: Layer.CAPE_BACKGROUND
+        });
+        c.visualProps.push({ 
+          path: `assets/knights/capes/front/${capeColor}_cape_front.png`,
+          x: 23,
+          y: 36,
+          width: 62,
+          height: 40,
+          layer: Layer.CAPE_FOREGROUND
+        });
+
+      }
+
+      if (c.properties.sword) {
+        const swordColor = getRandomElementFromArr(['bronze', 'iron', 'steel', 'gold', 'mythril', 'adamant', 'runite']);
+        c.visualProps.push({ 
+          path: `assets/knights/sword/${swordColor}_sword.png`,
+          x: 13,
+          y: 102,
+          width: 45,
+          height: 70,
+          layer: Layer.WEARABLE
+        });
       }
 
       if (c.properties.shield){
-        c.visualProps.push(this.ties[Math.floor(Math.random() * this.ties.length)]);
+        const shieldColor = getRandomElementFromArr([1, 2, 3, 4, 5, 6]);
+        c.visualProps.push({ 
+          path: `assets/knights/shield/${shieldColor}_shield.png`,
+          x: 65,
+          y: 55,
+          width: 50,
+          height: 75,
+          layer: Layer.WEARABLE
+        });
       }
 
+      // sort them so they are drawn in the right order
+      c.visualProps = c.visualProps.sort((a, b) => a.layer - b.layer);
     });
     return chars;
   }

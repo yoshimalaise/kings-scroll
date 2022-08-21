@@ -2,17 +2,17 @@
     <mat-list role="list">
         <mat-list-item class="list-item" role="listitem">
             <div class="row">
-                <mat-checkbox class="checkbox">headWear</mat-checkbox>
-                <mat-checkbox class="checkbox">tie</mat-checkbox>
-                <mat-checkbox class="checkbox">glasses</mat-checkbox>
-                <mat-checkbox class="checkbox">blue</mat-checkbox>
+                <mat-checkbox class="checkbox">helmet</mat-checkbox>
+                <mat-checkbox class="checkbox">shield</mat-checkbox>
+                <mat-checkbox class="checkbox">sword</mat-checkbox>
+                <mat-checkbox class="checkbox">cape</mat-checkbox>
             </div>
         </mat-list-item>
     
         <mat-list-item class="list-item" *ngFor="let v of level?.declaredVars" role="listitem">
             <mat-form-field class="full-width" appearance="fill">
                 <mat-label> {{ v }} </mat-label>
-                <input class="tracing-txtbox" matInput placeholder="" value="">
+                <input title="tracing var box" class="tracing-txtbox" matInput placeholder="" value="">
             </mat-form-field>
         </mat-list-item>
     </mat-list>
