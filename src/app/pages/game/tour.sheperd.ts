@@ -114,7 +114,7 @@ export const successMessageTour = [
     ...template,
     id: 'success',
     title: 'Enemy defeated!',
-    text: [makeWizardDialogBody('Good job! You managed to select the right hero and we saved the city!')],
+    text: [makeWizardDialogBody('Good job! You managed to select the right hero! The city is saved!')],
     buttons: [
         {
           classes: 'shepherd-button-primary',
@@ -130,7 +130,7 @@ export const failureMessageTour = [
     ...template,
     id: 'failure',
     title: 'Battle lost!',
-    text: [makeWizardDialogBody('Oh no! The hero you selected lost the battle! It looks like you picked the wrong hero!')],
+    text: [makeWizardDialogBody(`Oh no! The hero you selected lost the battle against ${dragonName}! It looks like you picked the wrong hero!`)],
     buttons: [
         {
           classes: 'shepherd-button-primary',
