@@ -9,8 +9,14 @@
   margin: 0px !important;
 }
 
-::ng-deep .language-javascript {
+::ng-deep  .mobile-gamefield .language-javascript {
   font-size: xx-small;
+  height: 100% !important;
+  width: 360px !important;
+}
+
+::ng-deep .gamefield .language-javascript {
+  font-size: x-small;
   height: 100% !important;
   width: 360px !important;
 }

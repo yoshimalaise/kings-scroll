@@ -91,13 +91,20 @@ const steps = [
         },
         text: [makeWizardDialogBody(`Here you can see all the champions that are currently in the kingdom, if you have found the one that the scroll is talking about feel free to select them!
         <br><br>No time to waste!`)],
+    },
+    {
+      ...template,
+      id: 'go-to-settings',
+      text: [makeWizardDialogBody(
+        `Before embarking on the adventure make sure to swing by the settings so you can make sure the scrolls are understandable to you!`
+        )],
         buttons: [
-            {
-              classes: 'shepherd-button-primary',
-              text: 'Start the adventure!',
-              type: 'next'
-            }
-        ]
+          {
+            classes: 'shepherd-button-primary',
+            text: 'Go to settings!',
+            type: 'next'
+          }
+      ]
     },
 ];
 

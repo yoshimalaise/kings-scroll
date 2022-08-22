@@ -59,6 +59,10 @@ export class GameComponent implements OnInit, AfterViewInit {
     this.switchToTab(0);
   }
 
+  backToHomeScreen() {
+    this.router.navigateByUrl('/');
+  }
+
   private setUpSheperd() {
     this.shepherdService.defaultStepOptions = {
       scrollTo: true,
@@ -116,6 +120,9 @@ export class GameComponent implements OnInit, AfterViewInit {
 
   private showIntro() {
     this.setUpSheperd();
+    this.shepherdService.onTourFinish = () => { 
+      this.router.navigateByUrl('/settings');
+    };
     this.shepherdService.requiredElements = this.settings.isMobile ? sheperdMobileRequiredElements : sheperdRequiredElements;
     const stepGeneratorFunction = this.settings.isMobile ? generateMobileSteps : generateSteps;
     this.shepherdService.addSteps(stepGeneratorFunction(this.currLevel?.solution as any, 
