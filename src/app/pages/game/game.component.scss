@@ -14,6 +14,11 @@
   flex-direction: column;
 }
 
+.back-button {
+  position: absolute;
+  top: 30px;
+}
+
 /** shepherd styling **/
 ::ng-deep .shepherd-button-primary {
   background-color: #9B26AF;

@@ -79,5 +79,19 @@ export function generateMobileSteps(solution: PropertyCombination, chosenName: s
       }
     ]
   },
+  {
+      ...template,
+      id: 'go-to-settings',
+      text: [makeWizardDialogBody(
+        `Before embarking on the adventure make sure to swing by the settings so you can make sure the scrolls are understandable to you!`
+        )],
+        buttons: [
+          {
+            classes: 'shepherd-button-primary',
+            text: 'Go to settings!',
+            type: 'next'
+          }
+      ]
+    },
   ];
 }

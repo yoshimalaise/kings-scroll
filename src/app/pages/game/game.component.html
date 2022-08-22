@@ -1,3 +1,7 @@
+<button *ngIf="!settings.isMobile" (click)="backToHomeScreen()" class="back-button" mat-raised-button color="primary">
+  Back to homescreen
+</button>
+
 <div class="gamefield" *ngIf="currLevel && !settings.isMobile">
   <div class="left-column">
     <div class="codesnippet-container">
