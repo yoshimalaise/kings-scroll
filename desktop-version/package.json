@@ -1,8 +1,8 @@
 {
-  "name": "desktop-version",
-  "productName": "desktop-version",
+  "name": "King's Scroll: The Search for the Chosen One",
+  "productName": "King's Scroll: The Search for the Chosen One",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "Exercise to practise predicting js code execution",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
@@ -19,7 +19,9 @@
   "license": "MIT",
   "config": {
     "forge": {
-      "packagerConfig": {},
+      "packagerConfig": {
+        "icon": "icon-512x512"
+      },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
