@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "start-pwa": "ng build --configuration production && http-server -p 8080 -c-1 dist/kings-scroll",
-    "start-tunnel": "lt -p 8080"
+    "start-tunnel": "lt -p 8080",
+    "build-desktop": "./build-desktop-targets.sh"
   },
   "private": true,
   "dependencies": {
@@ -48,5 +49,8 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
     "typescript": "~4.7.2"
+  },
+  "resolutions": {
+    "electron": "^11.0.1"
   }
 }

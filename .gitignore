@@ -5,6 +5,7 @@
 /tmp
 /out-tsc
 /bazel-out
+/desktop-version/src/weboutput
 
 # Node
 /node_modules
