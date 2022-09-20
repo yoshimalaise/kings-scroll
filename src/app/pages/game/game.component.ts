@@ -81,8 +81,8 @@ export class GameComponent implements OnInit, AfterViewInit {
     const s = this.currLevel?.solution;
     const p = char.properties;
     this.setUpSheperd();
-    this.shepherdService.onTourFinish = () => this.loadNextLevel();
     const isCorrect = (s?.cape === p.cape && s.sword === p.sword && s.helmet === p.helmet && s.shield === p.shield);
+    this.shepherdService.onTourFinish = () => isCorrect ? this.loadNextLevel() : '';
     const sess = (this.session as SinglePlayerSession);
     if (isCorrect) {
       sess.score++ 

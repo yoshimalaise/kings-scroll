@@ -137,7 +137,7 @@ export const failureMessageTour = [
     ...template,
     id: 'failure',
     title: 'Battle lost!',
-    text: [makeWizardDialogBody(`Oh no! The hero you selected lost the battle against ${dragonName}! It looks like you picked the wrong hero!`)],
+    text: [makeWizardDialogBody(`Oh no! The hero you selected lost the battle against ${dragonName}! It looks like you picked the wrong hero! Try again!`)],
     buttons: [
         {
           classes: 'shepherd-button-primary',
