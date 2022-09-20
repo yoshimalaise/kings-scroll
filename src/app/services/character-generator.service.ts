@@ -6,15 +6,20 @@ import { getRandomElementFromArr, shuffleArray } from '../utils/utils';
   providedIn: 'root'
 })
 export class CharacterGeneratorService {
-  private names = ['James', 'Robert', 'John', 'Michael', 'David', 'William', 'Richard', 'Joseph', 'Thomas',
+  private maleNames = ['James', 'Robert', 'John', 'Michael', 'David', 'William', 'Richard', 'Joseph', 'Thomas',
   'Charles', 'Christopher', 'Daniel', 'Matthew', 'Anthony', 'Mark', 'Donald', 'Steven', 'Paul', 'Andrew', 'Joshua',
   'Kenneth', 'Kevin', 'Brian', 'George', 'Timothy', 'Ronald', 'Edward', 'Jason', 'Jeffrey', 'Ryan'];
+
+  private femaleNames = ['Emma', 'Julia', 'Mila', 'Tess', 'Sophie', 'Zoë', 'Sara', 'Nora', 'Yara', 'Eva', 'Liv', 'Lotte', 'Evi', 'Noor',
+                        'Anna', 'Milou', 'Olivia', 'Saar', 'Lauren', 'Nina', 'Lieke', 'Fleur', 'Lynn', 'Sofie', 'Elin', 'Fien', 'Nova'];
 
   constructor() { }
 
   generateCharacterSet(): Character[] {
-    this.names = shuffleArray(this.names);
-    let nameIdx = 0;
+    this.maleNames = shuffleArray(this.maleNames);
+    this.femaleNames = shuffleArray(this.femaleNames);
+    let maleNameIdx = 0;
+    let femaleNameIdx = 0;
 
     const booleanOptions = [true, false];
     let results: Character[] = [];
@@ -22,8 +27,10 @@ export class CharacterGeneratorService {
       booleanOptions.forEach(shield => {
         booleanOptions.forEach(sword => {
           booleanOptions.forEach(cape => {
+            const isMale = Math.random() > 0.5;
             results.push({
-              name: this.names[nameIdx++],
+              isMale: isMale,
+              name: isMale ? this.maleNames[maleNameIdx++] : this.femaleNames[femaleNameIdx++],
               properties: {
                 helmet: helmet,
                 sword: sword,
@@ -78,17 +85,17 @@ export class CharacterGeneratorService {
         const skinTone = getRandomElementFromArr([1, 2, 3, 4, 5]);
         const hairColor = getRandomElementFromArr(['brown', 'cyan', 'pink', 'purple', 'red']);
         c.visualProps.push({
-          path: `assets/knights/face/${skinTone}_face.png`,
-          x: 35,
-          y: 17,
+          path: `assets/knights/face/${skinTone}_face_${c.isMale ? 'male' : 'female'}.png`,
+          x: 38,
+          y: 18,
           width: 42,
           height: 42,
           layer: Layer.FACE
         });
         c.visualProps.push({
-          path: `assets/knights/hair/${hairColor}_hair.png`,
-          x: 34,
-          y: 15,
+          path: `assets/knights/hair/${hairColor}_hair_${c.isMale ? 'male' : 'female'}.png`,
+          x: 36,
+          y: c.isMale ? 6 : 0,
           width: 42,
           height: 42,
           layer: Layer.FACE_OVERLAY

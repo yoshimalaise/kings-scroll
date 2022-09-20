@@ -5,6 +5,7 @@ export interface Character {
   properties: PropertyCombination;
   visualProps: VisualProp[];
   isCorrect?: boolean;
+  isMale: boolean;
 }
 
 export interface VisualProp {
@@ -18,9 +19,9 @@ export interface VisualProp {
 
 export enum Layer {
   CAPE_BACKGROUND = 1,
+  FACE,
   ARMOR,
   CAPE_FOREGROUND,
-  FACE,
   FACE_OVERLAY,
   WEARABLE,
 }
