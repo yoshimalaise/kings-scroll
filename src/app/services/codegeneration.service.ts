@@ -83,14 +83,22 @@ ${el2} = ${newVarName};
 
   private generateDoWhileBlock() {
     const newVarName = this.getNextVar();
+    /*
     const initialValue = noBetween(0, 20);
     const thresholdValue = noBetween(0, 20);
-    const comparator = getRandomElementFromArr(['<', '<=', '>', '>=', '===']);
-    // this one is a bit tricky since we want to prevent infinite loops
     let incOrDec = '++';
     if ((initialValue > thresholdValue) && ['>', '>='].includes(comparator)) {
       incOrDec = '--';
     }
+    */
+    const val1 = noBetween(0, 20);
+    const val2 = noBetween(0, 20);
+    const comparator = getRandomElementFromArr(['<', '<=', '>', '>=']);
+    // this one is a bit tricky since we want to prevent infinite loops
+    const initialValue = ["<", "<="].includes(comparator) ? Math.min(val1, val2) : Math.max(val1, val2);
+    const thresholdValue = ["<", "<="].includes(comparator) ? Math.max(val1, val2) : Math.min(val1, val2);
+    const incOrDec = ["<", "<="].includes(comparator) ? "++" : "--";
+
     return (
 `let ${newVarName} = ${initialValue};
 do {
