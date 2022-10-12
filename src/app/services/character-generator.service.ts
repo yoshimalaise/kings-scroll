@@ -6,12 +6,22 @@ import { getRandomElementFromArr, shuffleArray } from '../utils/utils';
   providedIn: 'root'
 })
 export class CharacterGeneratorService {
+  // names from WISE members
+  private maleNames = ["Beat", "Jan", "Renny", "Ahmed", "Carlos", "Maxim", "Kushal", "Isaac", "Yoshi", "Ekene", "Piet",
+  "Evan", "Arun", "Payam", "Christophe", "Geert-Jan"];
+
+  private femaleNames = ["Olga", "Audrey", "Xuyao", "Migdeily", "Suzanne", "Katrien", "Sandra", "Elien", "Saar", "Gelila", "Inas", "Yishen", "Aubin", "Claudia", "Elena", "Eleni"];
+
+  // old names
+  /*
   private maleNames = ['James', 'Robert', 'John', 'Michael', 'David', 'William', 'Richard', 'Joseph', 'Thomas',
   'Charles', 'Christopher', 'Daniel', 'Matthew', 'Anthony', 'Mark', 'Donald', 'Steven', 'Paul', 'Andrew', 'Joshua',
   'Kenneth', 'Kevin', 'Brian', 'George', 'Timothy', 'Ronald', 'Edward', 'Jason', 'Jeffrey', 'Ryan'];
 
   private femaleNames = ['Emma', 'Julia', 'Mila', 'Tess', 'Sophie', 'Zoë', 'Sara', 'Nora', 'Yara', 'Eva', 'Liv', 'Lotte', 'Evi', 'Noor',
                         'Anna', 'Milou', 'Olivia', 'Saar', 'Lauren', 'Nina', 'Lieke', 'Fleur', 'Lynn', 'Sofie', 'Elin', 'Fien', 'Nova'];
+
+  */
 
   constructor() { }
 

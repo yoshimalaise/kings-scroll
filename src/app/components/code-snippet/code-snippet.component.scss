@@ -21,6 +21,18 @@
   width: 360px !important;
 }
 
+::ng-deep .code-toolbar pre {
+  border-top: none !important;
+}
+
+::ng-deep .code-toolbar pre[class*=language-] {
+  background: none !important;
+}
+
+::ng-deep .code-toolbar pre .token[class*=token] {
+  background: none !important;
+}
+
 /** parchment code adapted from https://codepen.io/dayna/pen/pEpoGV **/
 .post {
   background: #FCF5E5;
@@ -52,14 +64,3 @@
   padding: 4px;
 }
 
-::ng-deep .code-toolbar pre {
-  border-top: none !important;
-}
-
-::ng-deep .code-toolbar pre[class*=language-] {
-  background: none !important;
-}
-
-::ng-deep .code-toolbar pre .token[class*=token] {
-  background: none !important;
-}
