@@ -10,8 +10,9 @@ export class CharacterGeneratorService {
   private maleNames = ["Beat", "Jan", "Renny", "Ahmed", "Carlos", "Maxim", "Kushal", "Isaac", "Yoshi", "Ekene", "Piet",
   "Evan", "Arun", "Payam", "Christophe", "Geert-Jan"];
 
-  private femaleNames = ["Olga", "Audrey", "Xuyao", "Migdeily", "Suzanne", "Katrien", "Sandra", "Elien", "Saar", "Gelila", "Inas", "Yishen", "Aubin", "Claudia", "Elena", "Eleni"];
+  private femaleNames = ["Olga", "Audrey", "Xuyao", "Migdeily", "Suzanne", "Katrien", "Sandra", "Elien", "Saar", "Gelila", "Inas", "Jasmien", "Aubin", "Claudia", "Elena", "Eleni"];
 
+  private genders = [...new Array(8).fill(true), ...new Array(8).fill(false)];
   // old names
   /*
   private maleNames = ['James', 'Robert', 'John', 'Michael', 'David', 'William', 'Richard', 'Joseph', 'Thomas',
@@ -28,8 +29,10 @@ export class CharacterGeneratorService {
   generateCharacterSet(): Character[] {
     this.maleNames = shuffleArray(this.maleNames);
     this.femaleNames = shuffleArray(this.femaleNames);
+    this.genders = shuffleArray(this.genders);
     let maleNameIdx = 0;
     let femaleNameIdx = 0;
+    let genderIdx = 0;
 
     const booleanOptions = [true, false];
     let results: Character[] = [];
@@ -37,7 +40,7 @@ export class CharacterGeneratorService {
       booleanOptions.forEach(shield => {
         booleanOptions.forEach(sword => {
           booleanOptions.forEach(cape => {
-            const isMale = Math.random() > 0.5;
+            const isMale =  this.genders[genderIdx++]; //Math.random() > 0.5;
             results.push({
               isMale: isMale,
               name: isMale ? this.maleNames[maleNameIdx++] : this.femaleNames[femaleNameIdx++],

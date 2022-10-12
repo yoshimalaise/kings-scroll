@@ -33,11 +33,66 @@
   background: none !important;
 }
 
+
+
+// image based version
+/**
+.post {
+  position: relative;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: show;
+  max-height: 700px;
+}
+
+.post-center {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #FCF5E5;
+  padding: 4px;
+  border-radius: 5px;
+  z-index: 1;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.post-border {
+  height: 48px;
+  z-index: 4;
+  background-size: cover;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  margin-left: 0;
+  padding-left: 0;
+
+  &.post-header {
+    top: 0;
+    background-image: url("../../../assets/scroll_handles/scroll_handle_top.png");
+  }
+
+  &.post-footer {
+    bottom: 0;
+    background-image: url("../../../assets/scroll_handles/scroll_handle_bottom.png");
+  }
+}
+**/
+
+// css only version from online
 /** parchment code adapted from https://codepen.io/dayna/pen/pEpoGV **/
+
 .post {
   background: #FCF5E5;
   margin: 4px;
   border-radius: 5px;
+}
+
+.post-center {
+  padding: 4px;
+  max-height: 400px;
+  overflow-y: auto;
 }
 
 .post-border {
@@ -60,7 +115,5 @@
   }
 }
 
-.post-center {
-  padding: 4px;
-}
+
 
