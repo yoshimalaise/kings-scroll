@@ -46,13 +46,14 @@
   width: 380px;
   padding-left: auto;
   padding-right: auto;
+  overflow-x: visible;
 }
 
 .post-center {
   border: 2px solid black;
   padding: 4px;
-  margin-left: 12px;
-  margin-right: 4px;
+  margin-left: 10px;
+  margin-right: 10px;
   margin-top: -8px;
   margin-bottom: -8px;
   background: #d8bc95;
@@ -63,7 +64,7 @@
 
 .post-border {
   height: 48px;
-  background-size: cover;
+  background-size: contain;
   width: 100%;
   padding-left: auto;
   padding-right: auto;
