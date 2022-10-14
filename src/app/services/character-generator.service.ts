@@ -6,6 +6,15 @@ import { getRandomElementFromArr, shuffleArray } from '../utils/utils';
   providedIn: 'root'
 })
 export class CharacterGeneratorService {
+  // names from WISE members
+  private maleNames = ["Beat", "Jan", "Renny", "Ahmed", "Carlos", "Maxim", "Kushal", "Isaac", "Yoshi", "Ekene", "Piet",
+  "Evan", "Arun", "Payam", "Christophe", "Geert-Jan"];
+
+  private femaleNames = ["Olga", "Audrey", "Xuyao", "Migdeily", "Suzanne", "Katrien", "Sandra", "Elien", "Saar", "Gelila", "Inas", "Jasmien", "Aubin", "Claudia", "Elena", "Eleni"];
+
+  private genders = [...new Array(8).fill(true), ...new Array(8).fill(false)];
+  // old names
+  /*
   private maleNames = ['James', 'Robert', 'John', 'Michael', 'David', 'William', 'Richard', 'Joseph', 'Thomas',
   'Charles', 'Christopher', 'Daniel', 'Matthew', 'Anthony', 'Mark', 'Donald', 'Steven', 'Paul', 'Andrew', 'Joshua',
   'Kenneth', 'Kevin', 'Brian', 'George', 'Timothy', 'Ronald', 'Edward', 'Jason', 'Jeffrey', 'Ryan'];
@@ -13,13 +22,17 @@ export class CharacterGeneratorService {
   private femaleNames = ['Emma', 'Julia', 'Mila', 'Tess', 'Sophie', 'Zoë', 'Sara', 'Nora', 'Yara', 'Eva', 'Liv', 'Lotte', 'Evi', 'Noor',
                         'Anna', 'Milou', 'Olivia', 'Saar', 'Lauren', 'Nina', 'Lieke', 'Fleur', 'Lynn', 'Sofie', 'Elin', 'Fien', 'Nova'];
 
+  */
+
   constructor() { }
 
   generateCharacterSet(): Character[] {
     this.maleNames = shuffleArray(this.maleNames);
     this.femaleNames = shuffleArray(this.femaleNames);
+    this.genders = shuffleArray(this.genders);
     let maleNameIdx = 0;
     let femaleNameIdx = 0;
+    let genderIdx = 0;
 
     const booleanOptions = [true, false];
     let results: Character[] = [];
@@ -27,7 +40,7 @@ export class CharacterGeneratorService {
       booleanOptions.forEach(shield => {
         booleanOptions.forEach(sword => {
           booleanOptions.forEach(cape => {
-            const isMale = Math.random() > 0.5;
+            const isMale =  this.genders[genderIdx++]; //Math.random() > 0.5;
             results.push({
               isMale: isMale,
               name: isMale ? this.maleNames[maleNameIdx++] : this.femaleNames[femaleNameIdx++],
