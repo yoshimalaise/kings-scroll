@@ -1,6 +1,6 @@
-# WhacAMole
+# King's scroll: the search for the chosen one
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.2.
+King's scroll the search for the chosen one in an online micromaterial to help students learn how to read and trace JS applications.
 
 ## Development server
 
